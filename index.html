@@ -943,7 +943,7 @@
         }
 
         .modal-content.large {
-            max-width: 900px;
+            max-width: 700px;
         }
 
         @keyframes modalSlideIn {
@@ -1223,6 +1223,221 @@
             color: #155724;
             margin: 0;
             font-size: 0.9rem;
+        }
+
+        /* Account Modal Styles */
+        .account-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid rgba(241, 242, 246, 0.5);
+            flex-wrap: wrap;
+        }
+
+        .account-tab {
+            padding: 0.8rem 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #636e72;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.3s;
+        }
+
+        .account-tab.active {
+            color: #ff6b35;
+            border-bottom-color: #ff6b35;
+        }
+
+        .account-panel {
+            display: none;
+        }
+
+        .account-panel.active {
+            display: block;
+        }
+
+        .account-info-card {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .account-info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(241, 242, 246, 0.5);
+        }
+
+        .account-info-row:last-child {
+            border-bottom: none;
+        }
+
+        .account-info-label {
+            color: #636e72;
+            font-size: 0.9rem;
+        }
+
+        .account-info-value {
+            color: #2d3436;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .bonus-card {
+            background: linear-gradient(135deg, #ff6b35 0%, #ff4500 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px rgba(255,107,53,0.3);
+        }
+
+        .bonus-amount {
+            font-size: 3rem;
+            font-weight: 900;
+            margin: 0.5rem 0;
+        }
+
+        .bonus-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .address-card, .card-item {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .address-info, .card-info {
+            flex: 1;
+        }
+
+        .address-title, .card-title {
+            font-weight: 700;
+            color: #2d3436;
+            margin-bottom: 0.3rem;
+        }
+
+        .address-detail, .card-detail {
+            color: #636e72;
+            font-size: 0.9rem;
+        }
+
+        .add-btn {
+            background: linear-gradient(135deg, #2ed573 0%, #1e90ff 100%);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .add-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46,213,115,0.4);
+        }
+
+        .delete-btn {
+            background: rgba(255, 71, 87, 0.1);
+            color: #ff4757;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+        }
+
+        .delete-btn:hover {
+            background: rgba(255, 71, 87, 0.2);
+        }
+
+        /* Address Selection in Cart */
+        .address-selection {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .address-selection h4 {
+            color: #2d3436;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .address-option {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem;
+            border: 2px solid rgba(241, 242, 246, 0.8);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .address-option:hover {
+            border-color: #ff6b35;
+        }
+
+        .address-option.selected {
+            border-color: #ff6b35;
+            background: rgba(255, 245, 240, 0.5);
+        }
+
+        .address-option input[type="radio"] {
+            margin-right: 1rem;
+        }
+
+        .bonus-usage {
+            background: rgba(255, 200, 100, 0.2);
+            border: 2px solid #ffc864;
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .bonus-usage h4 {
+            color: #2d3436;
+            margin-bottom: 0.8rem;
+        }
+
+        .bonus-usage-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .bonus-input {
+            width: 100px;
+            padding: 0.5rem;
+            border: 2px solid rgba(241, 242, 246, 0.8);
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 700;
         }
 
         /* Admin Panel */
@@ -1579,37 +1794,19 @@
             .menu-item-footer { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
             .add-to-cart { width: 100%; text-align: center; }
 
-            /* Delivery Page Mobile */
             .delivery-page-content { padding: 1rem; }
             #deliveryMap { height: 350px; }
             
-            /* ЗОНЫ ПО 3 В РЯД НА МОБИЛЬНОМ */
             .delivery-zones-grid {
                 grid-template-columns: repeat(3, 1fr);
                 gap: 0.8rem;
             }
             
-            .zone-card {
-                padding: 1rem 0.8rem;
-            }
-            
-            .zone-title {
-                font-size: 0.95rem;
-                margin-bottom: 0.5rem;
-            }
-            
-            .zone-areas {
-                font-size: 0.75rem;
-                margin-bottom: 0.5rem;
-            }
-            
-            .zone-price {
-                font-size: 1.1rem;
-            }
-            
-            .zone-time {
-                font-size: 0.75rem;
-            }
+            .zone-card { padding: 1rem 0.8rem; }
+            .zone-title { font-size: 0.95rem; margin-bottom: 0.5rem; }
+            .zone-areas { font-size: 0.75rem; margin-bottom: 0.5rem; }
+            .zone-price { font-size: 1.1rem; }
+            .zone-time { font-size: 0.75rem; }
 
             .modal-content { 
                 width: 95%; 
@@ -1622,15 +1819,8 @@
             .auth-tab { padding: 0.8rem 1.5rem; font-size: 1rem; }
             .card-row { grid-template-columns: 1fr; }
 
-            .cart-item {
-                padding: 1rem;
-            }
-
-            .cart-item-img {
-                width: 60px;
-                height: 60px;
-            }
-
+            .cart-item { padding: 1rem; }
+            .cart-item-img { width: 60px; height: 60px; }
             .cart-item-controls { width: 100%; justify-content: space-between; }
             .cart-total { font-size: 1.3rem; }
 
@@ -1660,7 +1850,6 @@
                 font-size: 0.9rem;
             }
 
-            /* Мини-корзина на мобильных - ИСПРАВЛЕНИЕ */
             .mini-cart {
                 bottom: 0;
                 right: 0;
@@ -1672,6 +1861,20 @@
             
             .mini-cart.show {
                 transform: translateY(0);
+            }
+
+            .account-tabs {
+                flex-direction: column;
+                gap: 0.3rem;
+            }
+
+            .account-tab {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .bonus-amount {
+                font-size: 2.5rem;
             }
         }
 
@@ -1768,7 +1971,7 @@
 
     <div class="nav-overlay" id="navOverlay" onclick="closeMenu()"></div>
 
-    <!-- Delivery Page - ОТДЕЛЬНАЯ СТРАНИЦА -->
+    <!-- Delivery Page -->
     <div class="delivery-page" id="deliveryPage">
         <div class="delivery-page-header">
             <div class="delivery-page-title">
@@ -2022,6 +2225,168 @@
         </div>
     </div>
 
+    <!-- Account Modal -->
+    <div class="modal" id="accountModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="fas fa-user-circle" style="color: #ff6b35;"></i> Мой аккаунт</h2>
+                <button class="close-btn" onclick="closeAccount()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="account-tabs">
+                <button class="account-tab active" onclick="switchAccountTab('info')">
+                    <i class="fas fa-info-circle"></i> Информация
+                </button>
+                <button class="account-tab" onclick="switchAccountTab('addresses')">
+                    <i class="fas fa-map-marker-alt"></i> Адреса
+                </button>
+                <button class="account-tab" onclick="switchAccountTab('cards')">
+                    <i class="fas fa-credit-card"></i> Карты
+                </button>
+                <button class="account-tab" onclick="switchAccountTab('bonuses')">
+                    <i class="fas fa-gift"></i> Бонусы
+                </button>
+            </div>
+
+            <!-- Info Panel -->
+            <div class="account-panel active" id="accountInfo">
+                <div class="account-info-card">
+                    <div class="account-info-row">
+                        <span class="account-info-label"><i class="fas fa-id-card"></i> ID пользователя</span>
+                        <span class="account-info-value" id="accountId">-</span>
+                    </div>
+                    <div class="account-info-row">
+                        <span class="account-info-label"><i class="fas fa-user"></i> Имя</span>
+                        <span class="account-info-value" id="accountName">-</span>
+                    </div>
+                    <div class="account-info-row">
+                        <span class="account-info-label"><i class="fas fa-envelope"></i> Email</span>
+                        <span class="account-info-value" id="accountEmail">-</span>
+                    </div>
+                    <div class="account-info-row">
+                        <span class="account-info-label"><i class="fas fa-phone"></i> Телефон</span>
+                        <span class="account-info-value" id="accountPhone">-</span>
+                    </div>
+                    <div class="account-info-row">
+                        <span class="account-info-label"><i class="fas fa-map-marker-alt"></i> Основной адрес</span>
+                        <span class="account-info-value" id="accountAddress">-</span>
+                    </div>
+                </div>
+
+                <h3 style="margin: 1.5rem 0 1rem; color: #2d3436;">Изменить данные</h3>
+                <form onsubmit="updateAccountInfo(event)">
+                    <div class="form-group">
+                        <label>Имя</label>
+                        <input type="text" id="editName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="editEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Телефон</label>
+                        <input type="tel" id="editPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Основной адрес доставки</label>
+                        <input type="text" id="editAddress" required>
+                    </div>
+                    <button type="submit" class="auth-submit">Сохранить изменения</button>
+                </form>
+            </div>
+
+            <!-- Addresses Panel -->
+            <div class="account-panel" id="accountAddresses">
+                <h3 style="margin-bottom: 1rem; color: #2d3436;">Мои адреса доставки</h3>
+                <div id="addressesList"></div>
+                
+                <h3 style="margin: 2rem 0 1rem; color: #2d3436;">Добавить новый адрес</h3>
+                <form onsubmit="addAddress(event)">
+                    <div class="form-group">
+                        <label>Название адреса</label>
+                        <input type="text" id="addressTitle" required placeholder="Например: Дом, Работа">
+                    </div>
+                    <div class="form-group">
+                        <label>Полный адрес</label>
+                        <input type="text" id="addressFull" required placeholder="г. Снежное, ул. Ленина, д. 1, кв. 10">
+                    </div>
+                    <div class="form-group">
+                        <label>Зона доставки</label>
+                        <select id="addressZone" required>
+                            <option value="1">Зона 1 - Центр (бесплатно)</option>
+                            <option value="2">Зона 2 - Пригород (100 ₽)</option>
+                            <option value="3">Зона 3 - Отдалённые (150 ₽)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="add-btn"><i class="fas fa-plus"></i> Добавить адрес</button>
+                </form>
+            </div>
+
+            <!-- Cards Panel -->
+            <div class="account-panel" id="accountCards">
+                <h3 style="margin-bottom: 1rem; color: #2d3436;">Мои карты для оплаты</h3>
+                <div id="cardsList"></div>
+                
+                <h3 style="margin: 2rem 0 1rem; color: #2d3436;">Добавить новую карту</h3>
+                <form onsubmit="addCard(event)">
+                    <div class="form-group">
+                        <label>Номер карты</label>
+                        <input type="text" id="cardNumberInput" required placeholder="1234 5678 9012 3456" maxlength="19">
+                    </div>
+                    <div class="card-row">
+                        <div class="form-group">
+                            <label>Срок действия</label>
+                            <input type="text" id="cardExpiryInput" required placeholder="MM/ГГ" maxlength="5">
+                        </div>
+                        <div class="form-group">
+                            <label>CVV</label>
+                            <input type="text" id="cardCvvInput" required placeholder="123" maxlength="3">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Имя владельца</label>
+                        <input type="text" id="cardNameInput" required placeholder="IVAN IVANOV">
+                    </div>
+                    <button type="submit" class="add-btn"><i class="fas fa-plus"></i> Добавить карту</button>
+                </form>
+            </div>
+
+            <!-- Bonuses Panel -->
+            <div class="account-panel" id="accountBonuses">
+                <div class="bonus-card">
+                    <div class="bonus-label">Ваши бонусы</div>
+                    <div class="bonus-amount" id="bonusAmount">0</div>
+                    <div class="bonus-label">1 бонус = 1 рубль</div>
+                </div>
+
+                <div class="account-info-card">
+                    <h4 style="margin-bottom: 1rem; color: #2d3436;">Как начисляются бонусы?</h4>
+                    <div class="account-info-row">
+                        <span class="account-info-label">За каждый заказ</span>
+                        <span class="account-info-value" style="color: #ff6b35;">5% от суммы</span>
+                    </div>
+                    <div class="account-info-row">
+                        <span class="account-info-label">Минимальная сумма заказа</span>
+                        <span class="account-info-value">500 ₽</span>
+                    </div>
+                    <div class="account-info-row">
+                        <span class="account-info-label">Максимум бонусов за заказ</span>
+                        <span class="account-info-value">500 бонусов</span>
+                    </div>
+                </div>
+
+                <div class="account-info-card">
+                    <h4 style="margin-bottom: 1rem; color: #2d3436;">История начислений</h4>
+                    <div id="bonusHistory">
+                        <p style="text-align: center; color: #636e72; padding: 1rem;">История пока пуста</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Cart Modal -->
     <div class="modal" id="cartModal">
         <div class="modal-content">
@@ -2034,6 +2399,28 @@
             
             <div id="cartView">
                 <div class="cart-items" id="cartItems"></div>
+                
+                <!-- Address Selection -->
+                <div class="address-selection" id="addressSelection" style="display: none;">
+                    <h4><i class="fas fa-map-marker-alt" style="color: #ff6b35;"></i> Выберите адрес доставки</h4>
+                    <div id="addressOptions"></div>
+                </div>
+
+                <!-- Bonus Usage -->
+                <div class="bonus-usage" id="bonusUsage" style="display: none;">
+                    <h4><i class="fas fa-gift" style="color: #ffc864;"></i> Использовать бонусы</h4>
+                    <div class="bonus-usage-row">
+                        <span>Доступно: <strong id="availableBonuses">0</strong> бонусов</span>
+                        <div>
+                            <input type="number" class="bonus-input" id="bonusInput" min="0" value="0" onchange="calculateBonus()">
+                            <button class="btn btn-small" onclick="useMaxBonuses()" style="margin-left: 0.5rem;">Макс.</button>
+                        </div>
+                    </div>
+                    <div style="color: #2d3436; font-size: 0.9rem;">
+                        Списано: <strong id="bonusUsed">0</strong> бонусов = <strong id="bonusDiscount">0</strong> ₽
+                    </div>
+                </div>
+
                 <div class="cart-total" id="cartTotal">Итого: 0 ₽</div>
                 <button class="checkout-btn" onclick="showPayment()">Оформить заказ</button>
             </div>
@@ -2064,6 +2451,11 @@
                         </div>
                     </div>
                 </label>
+
+                <div id="savedCardsSelection" style="display: none; margin-top: 1rem;">
+                    <h4 style="margin-bottom: 1rem; color: #2d3436;">Выберите сохранённую карту:</h4>
+                    <div id="savedCardsList"></div>
+                </div>
                 
                 <button class="checkout-btn" onclick="proceedToPayment()" style="margin-top: 1rem;">
                     Продолжить <i class="fas fa-arrow-right"></i>
@@ -2117,12 +2509,13 @@
                 </div>
                 <h3>Заказ успешно оформлен!</h3>
                 <p>Ваш заказ из ISKRA будет доставлен в течение 30-60 минут</p>
+                <p style="margin-top: 1rem; color: #ff6b35; font-weight: 700;" id="bonusEarnedMessage"></p>
                 <button class="checkout-btn" onclick="closeCart()" style="margin-top: 1.5rem;">Закрыть</button>
             </div>
         </div>
     </div>
 
-    <!-- Mini Cart - ЖИДКОЕ СТЕКЛО -->
+    <!-- Mini Cart -->
     <div class="mini-cart" id="miniCart">
         <div class="mini-cart-header">
             <div class="mini-cart-title">
@@ -2246,11 +2639,9 @@
 
         function skipWelcome() { closeWelcome(); }
 
-        // Delivery Page Functions
         function openDeliveryPage() {
             document.getElementById('deliveryPage').classList.add('active');
             document.body.style.overflow = 'hidden';
-            // Инициализируем карту после открытия страницы
             setTimeout(() => {
                 if (!map) {
                     initMap();
@@ -2309,7 +2700,7 @@
         let markers = [];
 
         function initMap() {
-            if (map) return; // Карта уже инициализирована
+            if (map) return;
             
             map = L.map('deliveryMap').setView([48.073955, 38.693535], 13);
 
@@ -2404,7 +2795,11 @@
             zone: 1,
             password: 'admin123',
             isAdmin: true,
-            registerDate: new Date().toISOString()
+            registerDate: new Date().toISOString(),
+            bonuses: 0,
+            bonusHistory: [],
+            addresses: [],
+            cards: []
         };
 
         let menuItems = loadData('menuItems', defaultMenuItems);
@@ -2414,6 +2809,8 @@
         let cart = [];
         let selectedPaymentMethod = null;
         let miniCartTimeout = null;
+        let selectedAddress = null;
+        let bonusToUse = 0;
 
         function renderMenu() {
             const menuGrid = document.getElementById('menuGrid');
@@ -2540,6 +2937,27 @@
                     e.target.value = value;
                 });
             }
+
+            // Card number formatting for account
+            const cardNumberInput = document.getElementById('cardNumberInput');
+            if (cardNumberInput) {
+                cardNumberInput.addEventListener('input', (e) => {
+                    let value = e.target.value.replace(/\s/g, '').replace(/\D/g, '');
+                    let formatted = value.match(/.{1,4}/g)?.join(' ') || value;
+                    e.target.value = formatted;
+                });
+            }
+
+            const cardExpiryInput = document.getElementById('cardExpiryInput');
+            if (cardExpiryInput) {
+                cardExpiryInput.addEventListener('input', (e) => {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length >= 2) {
+                        value = value.substring(0, 2) + '/' + value.substring(2, 4);
+                    }
+                    e.target.value = value;
+                });
+            }
         });
 
         function openAuth() {
@@ -2592,7 +3010,16 @@
                 id: Date.now(),
                 name, email, phone, address, zone, password,
                 isAdmin: false,
-                registerDate: new Date().toISOString()
+                registerDate: new Date().toISOString(),
+                bonuses: 0,
+                bonusHistory: [],
+                addresses: [{
+                    id: Date.now(),
+                    title: 'Основной адрес',
+                    full: address,
+                    zone: zone
+                }],
+                cards: []
             };
 
             users.push(newUser);
@@ -2645,11 +3072,248 @@
                     html += `<button class="btn btn-secondary" onclick="toggleAdmin()"><i class="fas fa-cog"></i> Админ</button>`;
                 }
                 
+                html += `<button class="btn btn-primary" onclick="openAccount()" style="background: linear-gradient(135deg, #2ed573 0%, #1e90ff 100%);"><i class="fas fa-user-circle"></i> Аккаунт</button>`;
                 html += `<button class="btn btn-danger" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Выйти</button>`;
                 userSection.innerHTML = html;
             } else {
                 userSection.innerHTML = `<button class="btn btn-primary" onclick="openAuth()"><i class="fas fa-user"></i> Войти</button>`;
             }
+        }
+
+        // Account Functions
+        function openAccount() {
+            if (!currentUser) {
+                openAuth();
+                return;
+            }
+            document.getElementById('accountModal').classList.add('active');
+            renderAccountInfo();
+            renderAddresses();
+            renderCards();
+            renderBonuses();
+            closeMenu();
+        }
+
+        function closeAccount() {
+            document.getElementById('accountModal').classList.remove('active');
+        }
+
+        function switchAccountTab(tab) {
+            document.querySelectorAll('.account-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.account-panel').forEach(p => p.classList.remove('active'));
+            
+            const tabs = ['info', 'addresses', 'cards', 'bonuses'];
+            const index = tabs.indexOf(tab);
+            document.querySelectorAll('.account-tab')[index].classList.add('active');
+            document.getElementById('account' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
+        }
+
+        function renderAccountInfo() {
+            if (!currentUser) return;
+            
+            document.getElementById('accountId').textContent = '#' + currentUser.id;
+            document.getElementById('accountName').textContent = currentUser.name;
+            document.getElementById('accountEmail').textContent = currentUser.email;
+            document.getElementById('accountPhone').textContent = currentUser.phone || 'Не указан';
+            document.getElementById('accountAddress').textContent = currentUser.address || 'Не указан';
+            
+            document.getElementById('editName').value = currentUser.name;
+            document.getElementById('editEmail').value = currentUser.email;
+            document.getElementById('editPhone').value = currentUser.phone || '';
+            document.getElementById('editAddress').value = currentUser.address || '';
+        }
+
+        function updateAccountInfo(event) {
+            event.preventDefault();
+            
+            const newName = document.getElementById('editName').value.trim();
+            const newEmail = document.getElementById('editEmail').value.trim().toLowerCase();
+            const newPhone = document.getElementById('editPhone').value.trim();
+            const newAddress = document.getElementById('editAddress').value.trim();
+
+            if (newEmail !== currentUser.email && users.find(u => u.email === newEmail)) {
+                showNotification('Email уже используется!', 'error');
+                return;
+            }
+
+            currentUser.name = newName;
+            currentUser.email = newEmail;
+            currentUser.phone = newPhone;
+            currentUser.address = newAddress;
+
+            // Update in users array
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex] = currentUser;
+            }
+
+            saveData('users', users);
+            saveData('currentUser', currentUser);
+            updateUserSection();
+            renderAccountInfo();
+            
+            showNotification('Данные успешно обновлены!', 'success');
+        }
+
+        function renderAddresses() {
+            const addressesList = document.getElementById('addressesList');
+            
+            if (!currentUser.addresses || currentUser.addresses.length === 0) {
+                addressesList.innerHTML = '<p style="text-align: center; color: #636e72; padding: 1rem;">Адреса не добавлены</p>';
+                return;
+            }
+
+            addressesList.innerHTML = currentUser.addresses.map(addr => `
+                <div class="address-card">
+                    <div class="address-info">
+                        <div class="address-title"><i class="fas fa-map-marker-alt" style="color: #ff6b35;"></i> ${addr.title}</div>
+                        <div class="address-detail">${addr.full}</div>
+                        <div class="address-detail" style="color: #ff6b35; font-weight: 600;">Зона ${addr.zone} - ${deliveryZones['zone' + addr.zone].price} ₽</div>
+                    </div>
+                    <button class="delete-btn" onclick="deleteAddress(${addr.id})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function addAddress(event) {
+            event.preventDefault();
+            
+            const title = document.getElementById('addressTitle').value.trim();
+            const full = document.getElementById('addressFull').value.trim();
+            const zone = parseInt(document.getElementById('addressZone').value);
+
+            if (!currentUser.addresses) {
+                currentUser.addresses = [];
+            }
+
+            currentUser.addresses.push({
+                id: Date.now(),
+                title,
+                full,
+                zone
+            });
+
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex] = currentUser;
+            }
+
+            saveData('users', users);
+            saveData('currentUser', currentUser);
+            renderAddresses();
+            
+            event.target.reset();
+            showNotification('Адрес добавлен!', 'success');
+        }
+
+        function deleteAddress(addressId) {
+            if (!confirm('Удалить этот адрес?')) return;
+            
+            currentUser.addresses = currentUser.addresses.filter(a => a.id !== addressId);
+            
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex] = currentUser;
+            }
+
+            saveData('users', users);
+            saveData('currentUser', currentUser);
+            renderAddresses();
+            showNotification('Адрес удалён', 'info');
+        }
+
+        function renderCards() {
+            const cardsList = document.getElementById('cardsList');
+            
+            if (!currentUser.cards || currentUser.cards.length === 0) {
+                cardsList.innerHTML = '<p style="text-align: center; color: #636e72; padding: 1rem;">Карты не добавлены</p>';
+                return;
+            }
+
+            cardsList.innerHTML = currentUser.cards.map(card => `
+                <div class="card-item">
+                    <div class="card-info">
+                        <div class="card-title"><i class="fas fa-credit-card" style="color: #ff6b35;"></i> ${card.name}</div>
+                        <div class="card-detail">**** **** **** ${card.number.slice(-4)}</div>
+                        <div class="card-detail">Действует до ${card.expiry}</div>
+                    </div>
+                    <button class="delete-btn" onclick="deleteCard(${card.id})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function addCard(event) {
+            event.preventDefault();
+            
+            const number = document.getElementById('cardNumberInput').value.trim();
+            const expiry = document.getElementById('cardExpiryInput').value.trim();
+            const cvv = document.getElementById('cardCvvInput').value.trim();
+            const name = document.getElementById('cardNameInput').value.trim();
+
+            if (!currentUser.cards) {
+                currentUser.cards = [];
+            }
+
+            currentUser.cards.push({
+                id: Date.now(),
+                number,
+                expiry,
+                cvv,
+                name
+            });
+
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex] = currentUser;
+            }
+
+            saveData('users', users);
+            saveData('currentUser', currentUser);
+            renderCards();
+            
+            event.target.reset();
+            showNotification('Карта добавлена!', 'success');
+        }
+
+        function deleteCard(cardId) {
+            if (!confirm('Удалить эту карту?')) return;
+            
+            currentUser.cards = currentUser.cards.filter(c => c.id !== cardId);
+            
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex] = currentUser;
+            }
+
+            saveData('users', users);
+            saveData('currentUser', currentUser);
+            renderCards();
+            showNotification('Карта удалена', 'info');
+        }
+
+        function renderBonuses() {
+            if (!currentUser) return;
+            
+            document.getElementById('bonusAmount').textContent = currentUser.bonuses || 0;
+            
+            const bonusHistory = document.getElementById('bonusHistory');
+            if (!currentUser.bonusHistory || currentUser.bonusHistory.length === 0) {
+                bonusHistory.innerHTML = '<p style="text-align: center; color: #636e72; padding: 1rem;">История пока пуста</p>';
+                return;
+            }
+
+            bonusHistory.innerHTML = currentUser.bonusHistory.slice(-10).reverse().map(b => `
+                <div class="account-info-row">
+                    <span class="account-info-label">${b.date}</span>
+                    <span class="account-info-value" style="color: ${b.type === 'earned' ? '#2ed573' : '#ff4757'};">
+                        ${b.type === 'earned' ? '+' : '-'}${b.amount} бонусов
+                    </span>
+                </div>
+            `).join('');
         }
 
         function toggleAdmin() {
@@ -2855,6 +3519,7 @@
                     </ul>
                     <div class="order-total">
                         Товары: ${order.itemsTotal} ₽ | Доставка: ${order.deliveryPrice} ₽ | 
+                        ${order.bonusUsed > 0 ? `Бонусы: -${order.bonusUsed} ₽ | ` : ''}
                         <strong>Итого: ${order.total} ₽</strong>
                     </div>
                     ${!order.status || order.status === 'pending' ? `
@@ -2914,27 +3579,54 @@
             document.getElementById('paymentForm').classList.remove('active');
             document.getElementById('successMessage').classList.remove('active');
             document.getElementById('cashInfo').classList.remove('active');
+            selectedAddress = null;
+            bonusToUse = 0;
         }
 
         function renderCart() {
             const cartItems = document.getElementById('cartItems');
             const cartTotal = document.getElementById('cartTotal');
+            const addressSelection = document.getElementById('addressSelection');
+            const bonusUsage = document.getElementById('bonusUsage');
             
             if (cart.length === 0) {
                 cartItems.innerHTML = '<p style="text-align: center; padding: 2rem; color: #636e72;">Корзина пуста</p>';
                 cartTotal.textContent = 'Итого: 0 ₽';
+                addressSelection.style.display = 'none';
+                bonusUsage.style.display = 'none';
                 return;
             }
             
             const itemsTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             
+            // Show address selection if user has addresses
+            if (currentUser && currentUser.addresses && currentUser.addresses.length > 0) {
+                addressSelection.style.display = 'block';
+                renderAddressOptions();
+            } else {
+                addressSelection.style.display = 'none';
+            }
+
+            // Show bonus usage if user has bonuses
+            if (currentUser && currentUser.bonuses > 0 && itemsTotal >= 500) {
+                bonusUsage.style.display = 'block';
+                document.getElementById('availableBonuses').textContent = currentUser.bonuses;
+                calculateBonus();
+            } else {
+                bonusUsage.style.display = 'none';
+                bonusToUse = 0;
+            }
+            
             let deliveryPrice = 0;
-            if (currentUser && currentUser.zone) {
+            if (selectedAddress) {
+                const zone = deliveryZones['zone' + selectedAddress.zone];
+                deliveryPrice = zone ? zone.price : 0;
+            } else if (currentUser && currentUser.zone) {
                 const zone = deliveryZones['zone' + currentUser.zone];
                 deliveryPrice = zone ? zone.price : 0;
             }
             
-            const total = itemsTotal + deliveryPrice;
+            const total = itemsTotal + deliveryPrice - bonusToUse;
             
             cartItems.innerHTML = cart.map(item => {
                 const imageData = foodImages[item.type] || foodImages.shawarma;
@@ -2963,9 +3655,59 @@
             } else if (currentUser) {
                 totalText += `Доставка: Бесплатно<br>`;
             }
+            if (bonusToUse > 0) {
+                totalText += `Бонусы: -${bonusToUse} ₽<br>`;
+            }
             totalText += `<strong>Итого: ${total} ₽</strong>`;
             
             cartTotal.innerHTML = totalText;
+        }
+
+        function renderAddressOptions() {
+            const addressOptions = document.getElementById('addressOptions');
+            
+            addressOptions.innerHTML = currentUser.addresses.map((addr, index) => `
+                <label class="address-option ${selectedAddress && selectedAddress.id === addr.id ? 'selected' : ''}" onclick="selectAddress(${addr.id})">
+                    <input type="radio" name="deliveryAddress" value="${addr.id}" ${selectedAddress && selectedAddress.id === addr.id ? 'checked' : ''}>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 700; color: #2d3436;">${addr.title}</div>
+                        <div style="font-size: 0.9rem; color: #636e72;">${addr.full}</div>
+                        <div style="font-size: 0.85rem; color: #ff6b35; font-weight: 600;">Зона ${addr.zone} - ${deliveryZones['zone' + addr.zone].price} ₽</div>
+                    </div>
+                </label>
+            `).join('');
+        }
+
+        function selectAddress(addressId) {
+            selectedAddress = currentUser.addresses.find(a => a.id === addressId);
+            renderAddressOptions();
+            renderCart();
+        }
+
+        function calculateBonus() {
+            const itemsTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const bonusInput = document.getElementById('bonusInput');
+            let bonusValue = parseInt(bonusInput.value) || 0;
+            
+            // Limit bonus usage
+            const maxBonus = Math.min(currentUser.bonuses, itemsTotal * 0.5);
+            bonusValue = Math.min(bonusValue, maxBonus);
+            bonusValue = Math.max(0, bonusValue);
+            
+            bonusToUse = bonusValue;
+            bonusInput.value = bonusValue;
+            
+            document.getElementById('bonusUsed').textContent = bonusValue;
+            document.getElementById('bonusDiscount').textContent = bonusValue;
+            
+            renderCart();
+        }
+
+        function useMaxBonuses() {
+            const itemsTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const maxBonus = Math.min(currentUser.bonuses, Math.floor(itemsTotal * 0.5));
+            document.getElementById('bonusInput').value = maxBonus;
+            calculateBonus();
         }
 
         function changeQuantity(itemId, change) {
@@ -3070,8 +3812,41 @@
                 return;
             }
             
+            // Check if address is selected
+            if (currentUser.addresses && currentUser.addresses.length > 0 && !selectedAddress) {
+                showNotification('Пожалуйста, выберите адрес доставки!', 'error');
+                return;
+            }
+            
             document.getElementById('cartView').style.display = 'none';
             document.getElementById('paymentMethodView').style.display = 'block';
+
+            // Show saved cards if any
+            const savedCardsSelection = document.getElementById('savedCardsSelection');
+            if (currentUser.cards && currentUser.cards.length > 0) {
+                savedCardsSelection.style.display = 'block';
+                renderSavedCards();
+            } else {
+                savedCardsSelection.style.display = 'none';
+            }
+        }
+
+        function renderSavedCards() {
+            const savedCardsList = document.getElementById('savedCardsList');
+            savedCardsList.innerHTML = currentUser.cards.map(card => `
+                <label class="payment-method-option" onclick="selectSavedCard(${card.id})">
+                    <input type="radio" name="savedCard" value="${card.id}" style="width: 20px; height: 20px; margin-right: 1rem;">
+                    <div style="flex: 1;">
+                        <div style="font-weight: 700; color: #2d3436;">**** **** **** ${card.number.slice(-4)}</div>
+                        <div style="font-size: 0.9rem; color: #636e72;">${card.name} • до ${card.expiry}</div>
+                    </div>
+                </label>
+            `).join('');
+        }
+
+        function selectSavedCard(cardId) {
+            // Store selected card for payment
+            window.selectedSavedCard = currentUser.cards.find(c => c.id === cardId);
         }
 
         function selectPaymentMethod(method) {
@@ -3103,6 +3878,14 @@
                     input.removeAttribute('required');
                 });
             } else {
+                // If saved card is selected, use it
+                if (window.selectedSavedCard) {
+                    document.getElementById('cardNumber').value = window.selectedSavedCard.number;
+                    document.getElementById('cardExpiry').value = window.selectedSavedCard.expiry;
+                    document.getElementById('cardCvv').value = window.selectedSavedCard.cvv;
+                    document.getElementById('cardName').value = window.selectedSavedCard.name;
+                }
+                
                 document.getElementById('paymentForm').classList.add('active');
                 document.getElementById('cardFields').style.display = 'block';
                 document.getElementById('payBtn').textContent = 'Оплатить картой';
@@ -3140,9 +3923,22 @@
             }
             
             const itemsTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const zone = deliveryZones['zone' + (currentUser.zone || 1)];
-            const deliveryPrice = zone ? zone.price : 0;
-            const total = itemsTotal + deliveryPrice;
+            
+            let deliveryPrice = 0;
+            let deliveryAddress = currentUser.address || 'Не указан';
+            let deliveryZone = currentUser.zone || 1;
+            
+            if (selectedAddress) {
+                const zone = deliveryZones['zone' + selectedAddress.zone];
+                deliveryPrice = zone ? zone.price : 0;
+                deliveryAddress = selectedAddress.full;
+                deliveryZone = selectedAddress.zone;
+            } else if (currentUser.zone) {
+                const zone = deliveryZones['zone' + currentUser.zone];
+                deliveryPrice = zone ? zone.price : 0;
+            }
+            
+            const total = itemsTotal + deliveryPrice - bonusToUse;
             
             const order = {
                 id: Date.now(),
@@ -3151,11 +3947,12 @@
                 userName: currentUser.name,
                 userEmail: currentUser.email,
                 userPhone: currentUser.phone,
-                deliveryAddress: currentUser.address || 'Не указан',
-                zone: currentUser.zone || 1,
+                deliveryAddress: deliveryAddress,
+                zone: deliveryZone,
                 items: JSON.parse(JSON.stringify(cart)),
                 itemsTotal: itemsTotal,
                 deliveryPrice: deliveryPrice,
+                bonusUsed: bonusToUse,
                 total: total,
                 paymentMethod: selectedPaymentMethod,
                 status: 'pending'
@@ -3163,6 +3960,43 @@
 
             orders.push(order);
             saveData('orders', orders);
+
+            // Calculate and add bonuses (5% of order, max 500)
+            if (itemsTotal >= 500) {
+                const earnedBonuses = Math.min(Math.floor(itemsTotal * 0.05), 500);
+                currentUser.bonuses = (currentUser.bonuses || 0) + earnedBonuses - bonusToUse;
+                
+                if (!currentUser.bonusHistory) {
+                    currentUser.bonusHistory = [];
+                }
+                
+                if (bonusToUse > 0) {
+                    currentUser.bonusHistory.push({
+                        date: new Date().toLocaleDateString('ru-RU'),
+                        amount: bonusToUse,
+                        type: 'spent'
+                    });
+                }
+                
+                currentUser.bonusHistory.push({
+                    date: new Date().toLocaleDateString('ru-RU'),
+                    amount: earnedBonuses,
+                    type: 'earned'
+                });
+                
+                // Update in users array
+                const userIndex = users.findIndex(u => u.id === currentUser.id);
+                if (userIndex !== -1) {
+                    users[userIndex] = currentUser;
+                }
+                
+                saveData('users', users);
+                saveData('currentUser', currentUser);
+                
+                document.getElementById('bonusEarnedMessage').textContent = `+${earnedBonuses} бонусов начислено!`;
+            } else {
+                document.getElementById('bonusEarnedMessage').textContent = '';
+            }
 
             setTimeout(() => {
                 document.getElementById('paymentForm').classList.remove('active');
@@ -3172,6 +4006,9 @@
                 cart = [];
                 updateCartCount();
                 selectedPaymentMethod = null;
+                selectedAddress = null;
+                bonusToUse = 0;
+                window.selectedSavedCard = null;
                 hideMiniCart();
                 
                 if (document.getElementById('adminSection').classList.contains('active')) {
