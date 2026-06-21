@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ISKRA - Шаурма, Курица Гриль, Пицца | Доставка в г. Снежное</title>
     
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
     
@@ -16,9 +15,11 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background-color: #f8f9fa;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* Welcome Screen */
@@ -256,15 +257,16 @@
             filter: drop-shadow(0 2px 8px rgba(255,107,53,0.4));
         }
 
-        nav { display: flex; gap: 2.5rem; align-items: center; }
+        nav { display: flex; gap: 2rem; align-items: center; }
 
         nav a {
             text-decoration: none;
             color: #2d3436;
             font-weight: 600;
             transition: all 0.3s;
-            font-size: 1rem;
+            font-size: 0.95rem;
             position: relative;
+            cursor: pointer;
         }
 
         nav a::after {
@@ -621,20 +623,25 @@
             box-shadow: 0 6px 20px rgba(255,107,53,0.4);
         }
 
-        /* Mini Cart Preview (в правом нижнем углу) */
+        /* Mini Cart - ЖИДКОЕ СТЕКЛО */
         .mini-cart {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 20px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.1);
             padding: 1.5rem;
-            max-width: 320px;
+            max-width: 340px;
             z-index: 999;
             transform: translateX(400px);
             transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            border: 2px solid #ff6b35;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .mini-cart.show {
@@ -647,58 +654,87 @@
             align-items: center;
             margin-bottom: 1rem;
             padding-bottom: 0.8rem;
-            border-bottom: 2px solid #f1f2f6;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .mini-cart-title {
-            font-size: 1.1rem;
-            font-weight: 700;
+            font-size: 1rem;
+            font-weight: 600;
             color: #2d3436;
         }
 
         .mini-cart-close {
-            background: none;
+            background: rgba(255, 255, 255, 0.2);
             border: none;
-            font-size: 1.2rem;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
             cursor: pointer;
             color: #636e72;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .mini-cart-close:hover {
+            background: rgba(255, 71, 87, 0.2);
             color: #ff4757;
             transform: rotate(90deg);
         }
 
         .mini-cart-items {
-            max-height: 200px;
+            max-height: 220px;
             overflow-y: auto;
             margin-bottom: 1rem;
         }
 
         .mini-cart-item {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 0.6rem 0;
-            border-bottom: 1px solid #f1f2f6;
-            font-size: 0.9rem;
+            gap: 0.8rem;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .mini-cart-item:last-child {
             border-bottom: none;
         }
 
+        .mini-cart-item-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            object-fit: cover;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .mini-cart-item-info {
+            flex: 1;
+            min-width: 0;
+        }
+
         .mini-cart-item-name {
             color: #2d3436;
             font-weight: 600;
-            flex: 1;
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .mini-cart-item-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
         }
 
         .mini-cart-item-qty {
             color: #ff6b35;
             font-weight: 700;
-            margin: 0 0.8rem;
         }
 
         .mini-cart-item-price {
@@ -711,15 +747,16 @@
             justify-content: space-between;
             align-items: center;
             padding-top: 1rem;
-            border-top: 2px solid #f1f2f6;
-            font-size: 1.1rem;
-            font-weight: 700;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 1rem;
+            font-weight: 600;
             color: #2d3436;
         }
 
         .mini-cart-total-amount {
             color: #ff6b35;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
+            font-weight: 700;
         }
 
         .mini-cart-actions {
@@ -732,40 +769,94 @@
             flex: 1;
             padding: 0.8rem;
             border: none;
-            border-radius: 10px;
-            font-weight: 700;
+            border-radius: 12px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .mini-cart-btn-view {
             background: linear-gradient(135deg, #ff6b35 0%, #ff4500 100%);
             color: white;
+            box-shadow: 0 4px 15px rgba(255,107,53,0.3);
         }
 
         .mini-cart-btn-view:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(255,107,53,0.4);
+            box-shadow: 0 6px 20px rgba(255,107,53,0.4);
         }
 
         .mini-cart-btn-clear {
-            background: #f1f2f6;
+            background: rgba(255, 255, 255, 0.3);
             color: #636e72;
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
 
         .mini-cart-btn-clear:hover {
-            background: #e0e0e0;
+            background: rgba(255, 255, 255, 0.5);
         }
 
-        /* Delivery Map Section */
-        .delivery-map-section {
+        /* Delivery Page - ОТДЕЛЬНАЯ СТРАНИЦА */
+        .delivery-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #f8f9fa;
+            z-index: 500;
+            overflow-y: auto;
+        }
+
+        .delivery-page.active {
+            display: block;
+        }
+
+        .delivery-page-header {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .delivery-page-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2d3436;
+        }
+
+        .delivery-back-btn {
+            background: linear-gradient(135deg, #ff6b35 0%, #ff4500 100%);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .delivery-back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,107,53,0.4);
+        }
+
+        .delivery-page-content {
             max-width: 1200px;
-            margin: 4rem auto;
-            padding: 0 2rem;
+            margin: 0 auto;
+            padding: 2rem;
         }
 
-        .map-container {
+        .delivery-map-container {
             background: white;
             border-radius: 20px;
             overflow: hidden;
@@ -775,17 +866,17 @@
 
         #deliveryMap { height: 500px; width: 100%; }
 
-        .delivery-zones-info {
+        .delivery-zones-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
             margin-top: 2rem;
         }
 
         .zone-card {
             background: white;
             border-radius: 15px;
-            padding: 2rem;
+            padding: 1.5rem;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             border-left: 5px solid;
             transition: all 0.3s;
@@ -801,47 +892,54 @@
         .zone-card.zone-3 { border-left-color: #ff4757; }
 
         .zone-title {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 0.6rem;
         }
 
         .zone-card.zone-1 .zone-title { color: #2ed573; }
         .zone-card.zone-2 .zone-title { color: #ffa502; }
         .zone-card.zone-3 .zone-title { color: #ff4757; }
 
-        .zone-areas { color: #636e72; margin-bottom: 1.5rem; line-height: 1.8; }
-        .zone-price { font-size: 1.8rem; font-weight: 800; color: #2d3436; margin-bottom: 0.5rem; }
-        .zone-time { color: #636e72; font-size: 1rem; }
+        .zone-areas { color: #636e72; margin-bottom: 1rem; line-height: 1.6; font-size: 0.9rem; }
+        .zone-price { font-size: 1.5rem; font-weight: 800; color: #2d3436; margin-bottom: 0.3rem; }
+        .zone-time { color: #636e72; font-size: 0.9rem; }
 
-        /* Modal */
+        /* Modal - ЖИДКОЕ СТЕКЛО */
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.5);
             z-index: 1000;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
 
         .modal.active { display: flex; }
 
         .modal-content {
-            background: white;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border-radius: 24px;
             padding: 2.5rem;
             max-width: 500px;
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
             animation: modalSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 
+                0 20px 60px rgba(0,0,0,0.3),
+                inset 0 1px 0 rgba(255,255,255,0.5),
+                inset 0 -1px 0 rgba(255,255,255,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
 
         .modal-content.large {
@@ -863,21 +961,31 @@
         .modal-title { font-size: 2rem; color: #2d3436; font-weight: 700; }
 
         .close-btn {
-            background: none;
+            background: rgba(255, 255, 255, 0.3);
             border: none;
-            font-size: 1.8rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1.2rem;
             cursor: pointer;
             color: #636e72;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .close-btn:hover { color: #ff4757; transform: rotate(90deg); }
+        .close-btn:hover { 
+            background: rgba(255, 71, 87, 0.2);
+            color: #ff4757; 
+            transform: rotate(90deg); 
+        }
 
         .auth-tabs {
             display: flex;
             gap: 1rem;
             margin-bottom: 2rem;
-            border-bottom: 2px solid #f1f2f6;
+            border-bottom: 2px solid rgba(241, 242, 246, 0.5);
         }
 
         .auth-tab {
@@ -905,6 +1013,7 @@
             margin-bottom: 0.8rem;
             font-weight: 600;
             color: #2d3436;
+            font-size: 0.95rem;
         }
 
         .form-group input,
@@ -912,10 +1021,12 @@
         .form-group textarea {
             width: 100%;
             padding: 1rem;
-            border: 2px solid #f1f2f6;
+            border: 2px solid rgba(241, 242, 246, 0.8);
             border-radius: 10px;
             font-size: 1rem;
             transition: all 0.3s;
+            font-family: inherit;
+            background: rgba(255, 255, 255, 0.6);
         }
 
         .form-group input:focus,
@@ -924,6 +1035,7 @@
             outline: none;
             border-color: #ff6b35;
             box-shadow: 0 0 0 3px rgba(255,107,53,0.1);
+            background: rgba(255, 255, 255, 0.9);
         }
 
         .card-row { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1rem; }
@@ -952,27 +1064,40 @@
 
         .cart-item {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 1.5rem;
-            border-bottom: 1px solid #f1f2f6;
+            gap: 1rem;
+            padding: 1.2rem;
+            border-bottom: 1px solid rgba(241, 242, 246, 0.5);
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 12px;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            object-fit: cover;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         .cart-item-info { flex: 1; }
-        .cart-item-title { font-weight: 700; margin-bottom: 0.5rem; color: #2d3436; }
-        .cart-item-price { color: #ff6b35; font-weight: 700; font-size: 1.1rem; }
+        .cart-item-title { font-weight: 600; margin-bottom: 0.3rem; color: #2d3436; font-size: 0.95rem; }
+        .cart-item-price { color: #ff6b35; font-weight: 700; font-size: 0.9rem; }
 
-        .cart-item-controls { display: flex; gap: 0.8rem; align-items: center; }
+        .cart-item-controls { display: flex; gap: 0.6rem; align-items: center; }
 
         .quantity-btn {
             background: linear-gradient(135deg, #ff6b35, #ff4500);
             color: white;
             border: none;
-            width: 35px; height: 35px;
+            width: 32px; height: 32px;
             border-radius: 50%;
             cursor: pointer;
             font-weight: 700;
             transition: all 0.3s;
+            font-size: 0.9rem;
         }
 
         .quantity-btn:hover { transform: scale(1.1); }
@@ -981,18 +1106,19 @@
             background: linear-gradient(135deg, #ff4757, #ff2200);
             color: white;
             border: none;
-            padding: 0.6rem 1.2rem;
+            padding: 0.5rem 1rem;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s;
+            font-size: 0.85rem;
         }
 
         .remove-btn:hover { transform: translateY(-2px); }
 
         .cart-total {
-            font-size: 1.8rem;
-            font-weight: 800;
+            font-size: 1.5rem;
+            font-weight: 700;
             text-align: right;
             margin-bottom: 2rem;
             color: #2d3436;
@@ -1005,7 +1131,7 @@
             border: none;
             padding: 1.2rem;
             border-radius: 10px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
@@ -1027,7 +1153,7 @@
             border: none;
             padding: 1.2rem;
             border-radius: 10px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
             margin-top: 1rem;
@@ -1048,17 +1174,18 @@
         .payment-method-option {
             display: flex;
             align-items: center;
-            padding: 1.5rem;
-            border: 2px solid #f1f2f6;
+            padding: 1.2rem;
+            border: 2px solid rgba(241, 242, 246, 0.8);
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s;
             margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.5);
         }
 
         .payment-method-option:hover {
             border-color: #ff6b35;
-            background: #fff5f0;
+            background: rgba(255, 245, 240, 0.7);
         }
 
         .payment-method-option input[type="radio"] {
@@ -1070,14 +1197,14 @@
 
         .payment-method-option.selected {
             border-color: #ff6b35;
-            background: #fff5f0;
+            background: rgba(255, 245, 240, 0.8);
         }
 
         .cash-info {
             display: none;
-            background: #d4edda;
+            background: rgba(212, 237, 218, 0.8);
             border-left: 4px solid #2ed573;
-            padding: 1.5rem;
+            padding: 1.2rem;
             border-radius: 10px;
             margin-bottom: 1.5rem;
         }
@@ -1089,11 +1216,13 @@
         .cash-info h4 {
             color: #155724;
             margin-bottom: 0.5rem;
+            font-size: 1rem;
         }
 
         .cash-info p {
             color: #155724;
             margin: 0;
+            font-size: 0.9rem;
         }
 
         /* Admin Panel */
@@ -1110,7 +1239,7 @@
             display: flex;
             gap: 1rem;
             margin-bottom: 2rem;
-            border-bottom: 2px solid #f1f2f6;
+            border-bottom: 2px solid rgba(241, 242, 246, 0.5);
             flex-wrap: wrap;
         }
 
@@ -1133,10 +1262,12 @@
         .admin-panel.active { display: block; }
 
         .admin-products-container {
-            background: white;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
             border-radius: 20px;
             padding: 2.5rem;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
 
         .admin-products-header {
@@ -1149,11 +1280,11 @@
         .admin-products-header h3 { color: #2d3436; font-size: 1.8rem; font-weight: 700; }
 
         .admin-product-card {
-            background: #f8f9fa;
+            background: rgba(248, 249, 250, 0.8);
             border-radius: 15px;
             padding: 2rem;
             margin-bottom: 1.5rem;
-            border: 2px solid #f1f2f6;
+            border: 2px solid rgba(241, 242, 246, 0.8);
             transition: all 0.3s;
         }
 
@@ -1192,7 +1323,7 @@
         .admin-product-card-body select {
             width: 100%;
             padding: 0.8rem;
-            border: 2px solid #f1f2f6;
+            border: 2px solid rgba(241, 242, 246, 0.8);
             border-radius: 8px;
             font-size: 1rem;
         }
@@ -1207,21 +1338,25 @@
         .admin-product-card-footer { display: flex; gap: 0.8rem; justify-content: flex-end; }
 
         .add-product-form {
-            background: white;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
             padding: 2.5rem;
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             max-width: 600px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
 
         .add-product-form h3 { margin-bottom: 2rem; color: #2d3436; font-size: 1.8rem; font-weight: 700; }
 
         /* Users Table */
         .users-container {
-            background: white;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
             border-radius: 20px;
             padding: 2.5rem;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
 
         .users-header {
@@ -1252,7 +1387,7 @@
         .users-table td {
             padding: 1rem;
             text-align: left;
-            border-bottom: 1px solid #f1f2f6;
+            border-bottom: 1px solid rgba(241, 242, 246, 0.5);
         }
 
         .users-table th {
@@ -1263,7 +1398,7 @@
         }
 
         .users-table tr:hover {
-            background: #f8f9fa;
+            background: rgba(248, 249, 250, 0.5);
         }
 
         .users-table td {
@@ -1290,13 +1425,15 @@
         }
 
         .orders-list {
-            background: white;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
 
-        .order-item { padding: 2rem; border-bottom: 1px solid #f1f2f6; }
+        .order-item { padding: 2rem; border-bottom: 1px solid rgba(241, 242, 246, 0.5); }
         .order-item:last-child { border-bottom: none; }
 
         .order-header {
@@ -1328,7 +1465,7 @@
         .payment-info {
             margin: 0.8rem 0;
             padding: 0.8rem;
-            background: #f8f9fa;
+            background: rgba(248, 249, 250, 0.6);
             border-radius: 8px;
         }
 
@@ -1388,7 +1525,8 @@
                 width: 80%;
                 max-width: 350px;
                 height: 100vh;
-                background: white;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(20px);
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
@@ -1427,7 +1565,6 @@
             .menu-section { margin: 2rem auto; padding: 0 1rem; }
             .section-title { font-size: 2rem; margin-bottom: 2rem; }
             
-            /* ИЗМЕНЕНО: 3 товара в ряд на мобильных */
             .menu-grid { 
                 grid-template-columns: repeat(3, 1fr); 
                 gap: 1rem; 
@@ -1442,28 +1579,60 @@
             .menu-item-footer { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
             .add-to-cart { width: 100%; text-align: center; }
 
-            .delivery-map-section { margin: 2rem auto; padding: 0 1rem; }
+            /* Delivery Page Mobile */
+            .delivery-page-content { padding: 1rem; }
             #deliveryMap { height: 350px; }
-            .delivery-zones-info { grid-template-columns: 1fr; gap: 1.5rem; }
-            .zone-card { padding: 1.5rem; }
-            .zone-title { font-size: 1.3rem; }
-            .zone-price { font-size: 1.5rem; }
+            
+            /* ЗОНЫ ПО 3 В РЯД НА МОБИЛЬНОМ */
+            .delivery-zones-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.8rem;
+            }
+            
+            .zone-card {
+                padding: 1rem 0.8rem;
+            }
+            
+            .zone-title {
+                font-size: 0.95rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .zone-areas {
+                font-size: 0.75rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .zone-price {
+                font-size: 1.1rem;
+            }
+            
+            .zone-time {
+                font-size: 0.75rem;
+            }
 
-            .modal-content { width: 95%; padding: 1.5rem; max-height: 95vh; }
+            .modal-content { 
+                width: 95%; 
+                padding: 1.5rem; 
+                max-height: 95vh;
+                background: rgba(255, 255, 255, 0.85);
+            }
             .modal-title { font-size: 1.5rem; }
             .auth-tabs { gap: 0.5rem; }
             .auth-tab { padding: 0.8rem 1.5rem; font-size: 1rem; }
             .card-row { grid-template-columns: 1fr; }
 
             .cart-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
                 padding: 1rem;
             }
 
+            .cart-item-img {
+                width: 60px;
+                height: 60px;
+            }
+
             .cart-item-controls { width: 100%; justify-content: space-between; }
-            .cart-total { font-size: 1.5rem; }
+            .cart-total { font-size: 1.3rem; }
 
             .admin-section { margin: 2rem auto; padding: 0 1rem; }
             .admin-tabs { gap: 0.5rem; }
@@ -1491,12 +1660,18 @@
                 font-size: 0.9rem;
             }
 
-            /* Мини-корзина на мобильных */
+            /* Мини-корзина на мобильных - ИСПРАВЛЕНИЕ */
             .mini-cart {
-                bottom: 20px;
-                right: 20px;
-                left: 20px;
+                bottom: 0;
+                right: 0;
+                left: 0;
                 max-width: none;
+                border-radius: 20px 20px 0 0;
+                transform: translateY(150%);
+            }
+            
+            .mini-cart.show {
+                transform: translateY(0);
             }
         }
 
@@ -1507,7 +1682,6 @@
             .logo-img { width: 55px; height: 55px; }
             .logo-text { font-size: 1.6rem; }
             
-            /* На очень маленьких экранах - 2 товара в ряд */
             .menu-grid { 
                 grid-template-columns: repeat(2, 1fr); 
                 gap: 0.8rem; 
@@ -1575,7 +1749,7 @@
 
             <nav id="nav">
                 <a href="#menu" onclick="closeMenu()"><i class="fas fa-utensils"></i> Меню</a>
-                <a href="#delivery" onclick="closeMenu()"><i class="fas fa-shipping-fast"></i> Доставка</a>
+                <a onclick="openDeliveryPage(); closeMenu();"><i class="fas fa-map-marked-alt"></i> Доставка</a>
                 <a href="#contact" onclick="closeMenu()"><i class="fas fa-phone"></i> Контакты</a>
                 <div class="nav-right">
                     <div class="cart-icon" onclick="openCart()">
@@ -1593,6 +1767,90 @@
     </header>
 
     <div class="nav-overlay" id="navOverlay" onclick="closeMenu()"></div>
+
+    <!-- Delivery Page - ОТДЕЛЬНАЯ СТРАНИЦА -->
+    <div class="delivery-page" id="deliveryPage">
+        <div class="delivery-page-header">
+            <div class="delivery-page-title">
+                <i class="fas fa-map-marked-alt" style="color: #ff6b35;"></i> Зоны доставки
+            </div>
+            <button class="delivery-back-btn" onclick="closeDeliveryPage()">
+                <i class="fas fa-arrow-left"></i> Назад
+            </button>
+        </div>
+        <div class="delivery-page-content">
+            <div class="delivery-map-container">
+                <div id="deliveryMap"></div>
+            </div>
+            
+            <h2 style="text-align: center; font-size: 2rem; margin-bottom: 1.5rem; color: #2d3436;">
+                <i class="fas fa-truck" style="color: #ff6b35;"></i> Зоны доставки г. Снежное
+            </h2>
+            
+            <div class="delivery-zones-grid">
+                <div class="zone-card zone-1">
+                    <div class="zone-title">
+                        <i class="fas fa-check-circle"></i> Зона 1
+                    </div>
+                    <div class="zone-areas">
+                        <strong>Центр:</strong><br>
+                        • Центр города<br>
+                        • ул. Ленина<br>
+                        • ул. Победы<br>
+                        • ул. Шевченко<br>
+                        • Новый Донбасс
+                    </div>
+                    <div class="zone-price">
+                        <i class="fas fa-gift"></i> Бесплатно
+                    </div>
+                    <div class="zone-time">
+                        <i class="fas fa-clock"></i> 30-40 мин
+                    </div>
+                </div>
+                
+                <div class="zone-card zone-2">
+                    <div class="zone-title">
+                        <i class="fas fa-info-circle"></i> Зона 2
+                    </div>
+                    <div class="zone-areas">
+                        <strong>Пригород:</strong><br>
+                        • пгт Андреевка<br>
+                        • пгт Горняцкое<br>
+                        • пгт Залесное<br>
+                        • пгт Первомайское<br>
+                        • пгт Победа
+                    </div>
+                    <div class="zone-price">
+                        <i class="fas fa-ruble-sign"></i> 100 ₽
+                    </div>
+                    <div class="zone-time">
+                        <i class="fas fa-clock"></i> 40-50 мин
+                    </div>
+                </div>
+                
+                <div class="zone-card zone-3">
+                    <div class="zone-title">
+                        <i class="fas fa-exclamation-circle"></i> Зона 3
+                    </div>
+                    <div class="zone-areas">
+                        <strong>Отдалённые:</strong><br>
+                        • пгт Бражино<br>
+                        • пгт Лиманчук<br>
+                        • пгт Никифорово<br>
+                        • пгт Северное<br>
+                        • пос. Молчалино<br>
+                        • пос. Суховское
+                    </div>
+                    <div class="zone-price">
+                        <i class="fas fa-ruble-sign"></i> 150 ₽
+                    </div>
+                    <div class="zone-time">
+                        <i class="fas fa-clock"></i> 50-60 мин
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -1612,79 +1870,6 @@
             <i class="fas fa-utensils"></i> Наше меню
         </h2>
         <div class="menu-grid" id="menuGrid"></div>
-    </section>
-
-    <!-- Delivery Map Section -->
-    <section class="delivery-map-section" id="delivery">
-        <h2 class="section-title">
-            <i class="fas fa-map-marked-alt"></i> Зоны доставки г. Снежное
-        </h2>
-        <div class="map-container">
-            <div id="deliveryMap"></div>
-        </div>
-        
-        <div class="delivery-zones-info">
-            <div class="zone-card zone-1">
-                <div class="zone-title">
-                    <i class="fas fa-check-circle"></i> Зона 1 - Центр
-                </div>
-                <div class="zone-areas">
-                    <strong><i class="fas fa-map-pin"></i> Районы:</strong><br>
-                    • Центр города<br>
-                    • ул. Ленина<br>
-                    • ул. Победы<br>
-                    • ул. Шевченко<br>
-                    • Новый Донбасс
-                </div>
-                <div class="zone-price">
-                    <i class="fas fa-gift"></i> Бесплатно
-                </div>
-                <div class="zone-time">
-                    <i class="fas fa-clock"></i> 30-40 минут
-                </div>
-            </div>
-            
-            <div class="zone-card zone-2">
-                <div class="zone-title">
-                    <i class="fas fa-info-circle"></i> Зона 2 - Пригород
-                </div>
-                <div class="zone-areas">
-                    <strong><i class="fas fa-map-pin"></i> Населённые пункты:</strong><br>
-                    • пгт Андреевка<br>
-                    • пгт Горняцкое<br>
-                    • пгт Залесное<br>
-                    • пгт Первомайское<br>
-                    • пгт Победа
-                </div>
-                <div class="zone-price">
-                    <i class="fas fa-ruble-sign"></i> 100 ₽
-                </div>
-                <div class="zone-time">
-                    <i class="fas fa-clock"></i> 40-50 минут
-                </div>
-            </div>
-            
-            <div class="zone-card zone-3">
-                <div class="zone-title">
-                    <i class="fas fa-exclamation-circle"></i> Зона 3 - Отдалённые
-                </div>
-                <div class="zone-areas">
-                    <strong><i class="fas fa-map-pin"></i> Населённые пункты:</strong><br>
-                    • пгт Бражино<br>
-                    • пгт Лиманчук<br>
-                    • пгт Никифорово<br>
-                    • пгт Северное<br>
-                    • пос. Молчалино<br>
-                    • пос. Суховское
-                </div>
-                <div class="zone-price">
-                    <i class="fas fa-ruble-sign"></i> 150 ₽
-                </div>
-                <div class="zone-time">
-                    <i class="fas fa-clock"></i> 50-60 минут
-                </div>
-            </div>
-        </div>
     </section>
 
     <!-- Admin Section -->
@@ -1717,7 +1902,6 @@
             </div>
         </div>
 
-        <!-- Users Panel -->
         <div class="admin-panel" id="adminUsers">
             <div class="users-container">
                 <div class="users-header">
@@ -1854,7 +2038,6 @@
                 <button class="checkout-btn" onclick="showPayment()">Оформить заказ</button>
             </div>
 
-            <!-- Выбор способа оплаты -->
             <div id="paymentMethodView" style="display: none;">
                 <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-credit-card"></i> Выберите способ оплаты</h3>
                 
@@ -1887,7 +2070,6 @@
                 </button>
             </div>
 
-            <!-- Информация об оплате наличными -->
             <div id="cashInfo" class="cash-info">
                 <h4>
                     <i class="fas fa-info-circle"></i> Оплата наличными
@@ -1940,7 +2122,7 @@
         </div>
     </div>
 
-    <!-- Mini Cart Preview (в правом нижнем углу) -->
+    <!-- Mini Cart - ЖИДКОЕ СТЕКЛО -->
     <div class="mini-cart" id="miniCart">
         <div class="mini-cart-header">
             <div class="mini-cart-title">
@@ -1976,7 +2158,6 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     
     <script>
-        // Food Images
         const foodImages = {
             shawarma: {
                 main: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=600&h=400&fit=crop',
@@ -2028,7 +2209,6 @@
             pizza: 'fa-pizza-slice'
         };
 
-        // Burger Menu Functions
         function toggleMenu() {
             const burger = document.getElementById('burger');
             const nav = document.getElementById('nav');
@@ -2056,7 +2236,6 @@
             document.body.style.overflow = '';
         }
 
-        // Welcome Screen Functions
         function closeWelcome() {
             const welcomeScreen = document.getElementById('welcomeScreen');
             welcomeScreen.classList.add('hidden');
@@ -2067,7 +2246,25 @@
 
         function skipWelcome() { closeWelcome(); }
 
-        // Delivery Zones Data
+        // Delivery Page Functions
+        function openDeliveryPage() {
+            document.getElementById('deliveryPage').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            // Инициализируем карту после открытия страницы
+            setTimeout(() => {
+                if (!map) {
+                    initMap();
+                } else {
+                    map.invalidateSize();
+                }
+            }, 100);
+        }
+
+        function closeDeliveryPage() {
+            document.getElementById('deliveryPage').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         const deliveryZones = {
             zone1: {
                 name: "Зона 1 - Центр",
@@ -2108,11 +2305,12 @@
             }
         };
 
-        // Map Initialization
         let map;
         let markers = [];
 
         function initMap() {
+            if (map) return; // Карта уже инициализирована
+            
             map = L.map('deliveryMap').setView([48.073955, 38.693535], 13);
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -2170,11 +2368,10 @@
             
             const restaurantMarker = L.marker([48.073955, 38.693535], {icon: restaurantIcon})
                 .addTo(map)
-                .bindPopup('<b> ISKRA</b><br>Шаурма, Курица Гриль, Пицца<br>г. Снежное<br>📞 +7 (999) 123-45-67');
+                .bindPopup('<b>🔥 ISKRA</b><br>Шаурма, Курица Гриль, Пицца<br>г. Снежное<br>📞 +7 (999) 123-45-67');
             markers.push(restaurantMarker);
         }
 
-        // Data Storage
         function loadData(key, defaultValue) {
             const data = localStorage.getItem(key);
             return data ? JSON.parse(data) : defaultValue;
@@ -2218,7 +2415,6 @@
         let selectedPaymentMethod = null;
         let miniCartTimeout = null;
 
-        // Render Menu
         function renderMenu() {
             const menuGrid = document.getElementById('menuGrid');
             menuGrid.innerHTML = menuItems.map(item => {
@@ -2250,7 +2446,6 @@
             }).join('');
         }
 
-        // Handle Image Error
         function handleImageError(imgElement, type, itemId) {
             const imageData = foodImages[type];
             const menuImageContainer = document.getElementById(`menuImg_${itemId}`);
@@ -2265,7 +2460,6 @@
             }
         }
 
-        // Render Users
         function renderUsers() {
             const usersList = document.getElementById('usersList');
             const totalUsers = document.getElementById('totalUsers');
@@ -2309,9 +2503,7 @@
             `;
         }
 
-        // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            initMap();
             renderMenu();
             updateUserSection();
             
@@ -2350,7 +2542,6 @@
             }
         });
 
-        // Auth Functions
         function openAuth() {
             document.getElementById('authModal').classList.add('active');
             closeMenu();
@@ -2461,7 +2652,6 @@
             }
         }
 
-        // Admin Panel Functions
         function toggleAdmin() {
             const adminSection = document.getElementById('adminSection');
             adminSection.classList.toggle('active');
@@ -2686,7 +2876,6 @@
             }
         }
 
-        // Cart Functions
         function addToCart(itemId) {
             const item = menuItems.find(i => i.id === itemId);
             const existingItem = cart.find(i => i.id === itemId);
@@ -2699,8 +2888,6 @@
             
             updateCartCount();
             showNotification(`${item.name} добавлен в корзину`, 'success');
-            
-            // Показываем мини-корзину
             showMiniCart();
         }
 
@@ -2713,7 +2900,6 @@
             document.getElementById('cartModal').classList.add('active');
             renderCart();
             closeMenu();
-            // Reset views
             document.getElementById('cartView').style.display = 'block';
             document.getElementById('paymentMethodView').style.display = 'none';
             document.getElementById('paymentForm').classList.remove('active');
@@ -2750,22 +2936,26 @@
             
             const total = itemsTotal + deliveryPrice;
             
-            cartItems.innerHTML = cart.map(item => `
-                <div class="cart-item">
-                    <div class="cart-item-info">
-                        <div class="cart-item-title">${item.name}</div>
-                        <div class="cart-item-price">${item.price} ₽ × ${item.quantity} = ${item.price * item.quantity} ₽</div>
+            cartItems.innerHTML = cart.map(item => {
+                const imageData = foodImages[item.type] || foodImages.shawarma;
+                return `
+                    <div class="cart-item">
+                        <img src="${imageData.main}" alt="${item.name}" class="cart-item-img" onerror="this.src='${imageData.fallback}'">
+                        <div class="cart-item-info">
+                            <div class="cart-item-title">${item.name}</div>
+                            <div class="cart-item-price">${item.price} ₽ × ${item.quantity} = ${item.price * item.quantity} ₽</div>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button class="quantity-btn" onclick="changeQuantity(${item.id}, -1)" title="Уменьшить">−</button>
+                            <span style="font-weight: 700; min-width: 20px; text-align: center;">${item.quantity}</span>
+                            <button class="quantity-btn" onclick="changeQuantity(${item.id}, 1)" title="Увеличить">+</button>
+                            <button class="remove-btn" onclick="removeFromCart(${item.id})" title="Убрать все">
+                                <i class="fas fa-trash"></i> Убрать все
+                            </button>
+                        </div>
                     </div>
-                    <div class="cart-item-controls">
-                        <button class="quantity-btn" onclick="changeQuantity(${item.id}, -1)" title="Уменьшить">−</button>
-                        <span style="font-weight: 700; min-width: 20px; text-align: center;">${item.quantity}</span>
-                        <button class="quantity-btn" onclick="changeQuantity(${item.id}, 1)" title="Увеличить">+</button>
-                        <button class="remove-btn" onclick="removeFromCart(${item.id})" title="Убрать все">
-                            <i class="fas fa-trash"></i> Убрать все
-                        </button>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
             
             let totalText = `Товары: ${itemsTotal} ₽<br>`;
             if (deliveryPrice > 0) {
@@ -2804,13 +2994,11 @@
             updateMiniCart();
         }
 
-        // Mini Cart Functions
         function showMiniCart() {
             const miniCart = document.getElementById('miniCart');
             updateMiniCart();
             miniCart.classList.add('show');
             
-            // Автоматически скрываем через 5 секунд
             if (miniCartTimeout) {
                 clearTimeout(miniCartTimeout);
             }
@@ -2836,13 +3024,21 @@
             
             const itemsTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             
-            miniCartItems.innerHTML = cart.map(item => `
-                <div class="mini-cart-item">
-                    <span class="mini-cart-item-name">${item.name}</span>
-                    <span class="mini-cart-item-qty">×${item.quantity}</span>
-                    <span class="mini-cart-item-price">${item.price * item.quantity} ₽</span>
-                </div>
-            `).join('');
+            miniCartItems.innerHTML = cart.map(item => {
+                const imageData = foodImages[item.type] || foodImages.shawarma;
+                return `
+                    <div class="mini-cart-item">
+                        <img src="${imageData.main}" alt="${item.name}" class="mini-cart-item-img" onerror="this.src='${imageData.fallback}'">
+                        <div class="mini-cart-item-info">
+                            <div class="mini-cart-item-name">${item.name}</div>
+                            <div class="mini-cart-item-details">
+                                <span class="mini-cart-item-qty">×${item.quantity}</span>
+                                <span class="mini-cart-item-price">${item.price * item.quantity} ₽</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
             
             miniCartTotal.textContent = `${itemsTotal} ₽`;
         }
@@ -2862,7 +3058,6 @@
             }
         }
 
-        // Payment Functions
         function showPayment() {
             if (cart.length === 0) {
                 showNotification('Корзина пуста!', 'error');
@@ -2875,7 +3070,6 @@
                 return;
             }
             
-            // Show payment method selection
             document.getElementById('cartView').style.display = 'none';
             document.getElementById('paymentMethodView').style.display = 'block';
         }
@@ -2883,13 +3077,11 @@
         function selectPaymentMethod(method) {
             selectedPaymentMethod = method;
             
-            // Update visual selection
             document.querySelectorAll('.payment-method-option').forEach(option => {
                 option.classList.remove('selected');
             });
             event.currentTarget.classList.add('selected');
             
-            // Check the radio button
             event.currentTarget.querySelector('input[type="radio"]').checked = true;
         }
 
@@ -2902,23 +3094,19 @@
             document.getElementById('paymentMethodView').style.display = 'none';
             
             if (selectedPaymentMethod === 'cash') {
-                // Show cash info and skip card form
                 document.getElementById('cashInfo').classList.add('active');
                 document.getElementById('paymentForm').classList.add('active');
                 document.getElementById('cardFields').style.display = 'none';
                 document.getElementById('payBtn').textContent = 'Подтвердить заказ';
                 document.getElementById('payBtn').className = 'btn btn-success';
-                // Remove required from card fields
                 document.querySelectorAll('#cardFields input').forEach(input => {
                     input.removeAttribute('required');
                 });
             } else {
-                // Show card form
                 document.getElementById('paymentForm').classList.add('active');
                 document.getElementById('cardFields').style.display = 'block';
                 document.getElementById('payBtn').textContent = 'Оплатить картой';
                 document.getElementById('payBtn').className = 'pay-btn';
-                // Add required to card fields
                 document.querySelectorAll('#cardFields input').forEach(input => {
                     input.setAttribute('required', 'required');
                 });
@@ -2939,7 +3127,6 @@
                 return;
             }
             
-            // If card payment, validate fields
             if (selectedPaymentMethod === 'card') {
                 const cardNumber = document.getElementById('cardNumber').value;
                 const cardExpiry = document.getElementById('cardExpiry').value;
