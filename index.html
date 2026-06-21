@@ -621,6 +621,143 @@
             box-shadow: 0 6px 20px rgba(255,107,53,0.4);
         }
 
+        /* Mini Cart Preview (в правом нижнем углу) */
+        .mini-cart {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 1.5rem;
+            max-width: 320px;
+            z-index: 999;
+            transform: translateX(400px);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 2px solid #ff6b35;
+        }
+
+        .mini-cart.show {
+            transform: translateX(0);
+        }
+
+        .mini-cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid #f1f2f6;
+        }
+
+        .mini-cart-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2d3436;
+        }
+
+        .mini-cart-close {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #636e72;
+            transition: all 0.3s;
+        }
+
+        .mini-cart-close:hover {
+            color: #ff4757;
+            transform: rotate(90deg);
+        }
+
+        .mini-cart-items {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+        }
+
+        .mini-cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #f1f2f6;
+            font-size: 0.9rem;
+        }
+
+        .mini-cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .mini-cart-item-name {
+            color: #2d3436;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .mini-cart-item-qty {
+            color: #ff6b35;
+            font-weight: 700;
+            margin: 0 0.8rem;
+        }
+
+        .mini-cart-item-price {
+            color: #2d3436;
+            font-weight: 700;
+        }
+
+        .mini-cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 2px solid #f1f2f6;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2d3436;
+        }
+
+        .mini-cart-total-amount {
+            color: #ff6b35;
+            font-size: 1.3rem;
+        }
+
+        .mini-cart-actions {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .mini-cart-btn {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .mini-cart-btn-view {
+            background: linear-gradient(135deg, #ff6b35 0%, #ff4500 100%);
+            color: white;
+        }
+
+        .mini-cart-btn-view:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255,107,53,0.4);
+        }
+
+        .mini-cart-btn-clear {
+            background: #f1f2f6;
+            color: #636e72;
+        }
+
+        .mini-cart-btn-clear:hover {
+            background: #e0e0e0;
+        }
+
         /* Delivery Map Section */
         .delivery-map-section {
             max-width: 1200px;
@@ -1289,14 +1426,21 @@
 
             .menu-section { margin: 2rem auto; padding: 0 1rem; }
             .section-title { font-size: 2rem; margin-bottom: 2rem; }
-            .menu-grid { grid-template-columns: 1fr; gap: 1.5rem; }
             
-            .menu-item-image { height: 200px; }
-
-            .menu-item-content { padding: 1.5rem; }
-            .menu-item-title { font-size: 1.3rem; }
-            .menu-item-price { font-size: 1.5rem; }
-            .add-to-cart { padding: 0.7rem 1.5rem; font-size: 0.9rem; }
+            /* ИЗМЕНЕНО: 3 товара в ряд на мобильных */
+            .menu-grid { 
+                grid-template-columns: repeat(3, 1fr); 
+                gap: 1rem; 
+            }
+            
+            .menu-item-image { height: 120px; }
+            .menu-item-content { padding: 0.8rem; }
+            .menu-item-title { font-size: 0.9rem; margin-bottom: 0.3rem; }
+            .menu-item-description { font-size: 0.75rem; margin-bottom: 0.5rem; display: none; }
+            .menu-item-price { font-size: 1rem; }
+            .add-to-cart { padding: 0.5rem 0.8rem; font-size: 0.75rem; }
+            .menu-item-footer { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+            .add-to-cart { width: 100%; text-align: center; }
 
             .delivery-map-section { margin: 2rem auto; padding: 0 1rem; }
             #deliveryMap { height: 350px; }
@@ -1346,20 +1490,28 @@
                 padding: 1rem;
                 font-size: 0.9rem;
             }
+
+            /* Мини-корзина на мобильных */
+            .mini-cart {
+                bottom: 20px;
+                right: 20px;
+                left: 20px;
+                max-width: none;
+            }
         }
 
         @media (max-width: 480px) {
             .welcome-title { font-size: 2rem; }
             .hero h1 { font-size: 2.5rem; }
             .section-title { font-size: 1.8rem; }
-            .menu-item-footer {
-                flex-direction: column;
-                gap: 1rem;
-                align-items: flex-start;
-            }
-            .add-to-cart { width: 100%; }
             .logo-img { width: 55px; height: 55px; }
             .logo-text { font-size: 1.6rem; }
+            
+            /* На очень маленьких экранах - 2 товара в ряд */
+            .menu-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 0.8rem; 
+            }
         }
 
         .nav-overlay {
@@ -1788,6 +1940,31 @@
         </div>
     </div>
 
+    <!-- Mini Cart Preview (в правом нижнем углу) -->
+    <div class="mini-cart" id="miniCart">
+        <div class="mini-cart-header">
+            <div class="mini-cart-title">
+                <i class="fas fa-shopping-cart"></i> Корзина
+            </div>
+            <button class="mini-cart-close" onclick="hideMiniCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mini-cart-items" id="miniCartItems"></div>
+        <div class="mini-cart-total">
+            <span>Итого:</span>
+            <span class="mini-cart-total-amount" id="miniCartTotal">0 ₽</span>
+        </div>
+        <div class="mini-cart-actions">
+            <button class="mini-cart-btn mini-cart-btn-clear" onclick="clearCartFromMini()">
+                <i class="fas fa-trash"></i> Очистить
+            </button>
+            <button class="mini-cart-btn mini-cart-btn-view" onclick="openCartFromMini()">
+                <i class="fas fa-eye"></i> Открыть
+            </button>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer id="contact">
         <p>&copy; 2026 <strong>ISKRA</strong> - Шаурма, Курица Гриль, Пицца | г. Снежное, Донецкая область</p>
@@ -1993,7 +2170,7 @@
             
             const restaurantMarker = L.marker([48.073955, 38.693535], {icon: restaurantIcon})
                 .addTo(map)
-                .bindPopup('<b>🔥 ISKRA</b><br>Шаурма, Курица Гриль, Пицца<br>г. Снежное<br>📞 +7 (999) 123-45-67');
+                .bindPopup('<b> ISKRA</b><br>Шаурма, Курица Гриль, Пицца<br>г. Снежное<br>📞 +7 (999) 123-45-67');
             markers.push(restaurantMarker);
         }
 
@@ -2039,6 +2216,7 @@
         let currentUser = loadData('currentUser', null);
         let cart = [];
         let selectedPaymentMethod = null;
+        let miniCartTimeout = null;
 
         // Render Menu
         function renderMenu() {
@@ -2521,6 +2699,9 @@
             
             updateCartCount();
             showNotification(`${item.name} добавлен в корзину`, 'success');
+            
+            // Показываем мини-корзину
+            showMiniCart();
         }
 
         function updateCartCount() {
@@ -2607,6 +2788,7 @@
                 }
                 updateCartCount();
                 renderCart();
+                updateMiniCart();
             }
         }
 
@@ -2619,6 +2801,65 @@
             
             updateCartCount();
             renderCart();
+            updateMiniCart();
+        }
+
+        // Mini Cart Functions
+        function showMiniCart() {
+            const miniCart = document.getElementById('miniCart');
+            updateMiniCart();
+            miniCart.classList.add('show');
+            
+            // Автоматически скрываем через 5 секунд
+            if (miniCartTimeout) {
+                clearTimeout(miniCartTimeout);
+            }
+            miniCartTimeout = setTimeout(() => {
+                hideMiniCart();
+            }, 5000);
+        }
+
+        function hideMiniCart() {
+            const miniCart = document.getElementById('miniCart');
+            miniCart.classList.remove('show');
+        }
+
+        function updateMiniCart() {
+            const miniCartItems = document.getElementById('miniCartItems');
+            const miniCartTotal = document.getElementById('miniCartTotal');
+            
+            if (cart.length === 0) {
+                miniCartItems.innerHTML = '<p style="text-align: center; color: #636e72; padding: 1rem;">Корзина пуста</p>';
+                miniCartTotal.textContent = '0 ₽';
+                return;
+            }
+            
+            const itemsTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            miniCartItems.innerHTML = cart.map(item => `
+                <div class="mini-cart-item">
+                    <span class="mini-cart-item-name">${item.name}</span>
+                    <span class="mini-cart-item-qty">×${item.quantity}</span>
+                    <span class="mini-cart-item-price">${item.price * item.quantity} ₽</span>
+                </div>
+            `).join('');
+            
+            miniCartTotal.textContent = `${itemsTotal} ₽`;
+        }
+
+        function openCartFromMini() {
+            hideMiniCart();
+            openCart();
+        }
+
+        function clearCartFromMini() {
+            if (confirm('Очистить корзину?')) {
+                cart = [];
+                updateCartCount();
+                updateMiniCart();
+                hideMiniCart();
+                showNotification('Корзина очищена', 'info');
+            }
         }
 
         // Payment Functions
@@ -2744,6 +2985,7 @@
                 cart = [];
                 updateCartCount();
                 selectedPaymentMethod = null;
+                hideMiniCart();
                 
                 if (document.getElementById('adminSection').classList.contains('active')) {
                     renderOrders();
