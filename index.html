@@ -5,13 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>ISKRA - Шаурма, Курица Гриль, Пицца</title>
 <link rel="icon" type="image/png" href="logo.png">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f8f9fa;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
-/* Welcome */
 .welcome-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#1a1a2e,#2d1b1b,#1a1a2e);display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:10000;overflow:hidden}
 .welcome-screen::before{content:'';position:absolute;width:200%;height:200%;background:radial-gradient(circle,rgba(255,107,53,.1) 0%,transparent 70%);animation:rotate 20s linear infinite}
 @keyframes rotate{to{transform:rotate(360deg)}}
@@ -32,13 +30,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .welcome-skip{position:absolute;top:30px;right:30px;background:rgba(255,255,255,.1);color:#fff;padding:1rem 2rem;border:2px solid rgba(255,107,53,.5);border-radius:30px;cursor:pointer;font-size:1rem;animation:fadeIn 1s 1.5s both;font-weight:600}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
-/* Header */
 header{background:rgba(255,255,255,.98);padding:1rem 2rem;box-shadow:0 4px 20px rgba(0,0,0,.08);position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}
 .header-content{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
-.logo{display:flex;align-items:center;gap:15px}
+.logo{display:flex;align-items:center;gap:15px;position:relative}
 .logo-img{width:90px;height:90px;object-fit:contain;border-radius:50%;transition:transform .3s;filter:drop-shadow(0 4px 12px rgba(255,107,53,.4))}
 .logo-img:hover{transform:rotate(10deg) scale(1.15)}
-.logo-text{font-size:2.8rem;font-weight:900;background:linear-gradient(135deg,#ff6b35,#ff4500,#ff2200);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:4px}
+.logo-text{font-size:2.8rem;font-weight:900;background:linear-gradient(135deg,#ff6b35,#ff4500,#ff2200);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:4px;position:relative}
+.logo-text::before{content:'ISKRA';position:absolute;left:0;top:0;background:linear-gradient(135deg,#ff6b35,#ff4500,#ff2200);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:blur(8px);opacity:.6;animation:glow 2s ease-in-out infinite}
+@keyframes glow{0%,100%{opacity:.4;filter:blur(8px)}50%{opacity:.8;filter:blur(12px)}}
+.spark{position:absolute;width:4px;height:4px;background:#ff6b35;border-radius:50%;pointer-events:none;animation:spark-fly 1.5s ease-out infinite}
+.spark:nth-child(1){animation-delay:0s;left:10%;top:50%}.spark:nth-child(2){animation-delay:.2s;left:30%;top:30%}.spark:nth-child(3){animation-delay:.4s;left:50%;top:60%}.spark:nth-child(4){animation-delay:.6s;left:70%;top:40%}.spark:nth-child(5){animation-delay:.8s;left:90%;top:50%}.spark:nth-child(6){animation-delay:1s;left:20%;top:70%}.spark:nth-child(7){animation-delay:1.2s;left:60%;top:20%}.spark:nth-child(8){animation-delay:1.4s;left:80%;top:80%}
+@keyframes spark-fly{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--tx,20px),var(--ty,-30px)) scale(0);opacity:0}}
+
 nav{display:flex;gap:2rem;align-items:center}
 nav a{text-decoration:none;color:#2d3436;font-weight:600;transition:all .3s;font-size:.95rem;cursor:pointer}
 .nav-right{display:flex;align-items:center;gap:1.5rem}
@@ -55,14 +58,12 @@ nav a{text-decoration:none;color:#2d3436;font-weight:600;transition:all .3s;font
 .btn-success{background:linear-gradient(135deg,#2ed573,#1e90ff);color:#fff}
 .btn-small{padding:.5rem 1rem;font-size:.85rem}
 
-/* Burger */
 .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px;z-index:101}
 .burger span{width:30px;height:3px;background:#ff6b35;border-radius:3px;transition:all .3s}
 .burger.active span:nth-child(1){transform:rotate(45deg) translate(8px,8px)}
 .burger.active span:nth-child(2){opacity:0}
 .burger.active span:nth-child(3){transform:rotate(-45deg) translate(8px,-8px)}
 
-/* Hero */
 .hero{background:linear-gradient(135deg,rgba(0,0,0,.75),rgba(0,0,0,.5)),url('iskra-hero.png');background-size:cover;background-position:center 30%;height:750px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:#fff;padding:0 2rem;position:relative;overflow:hidden}
 .hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:150px;background:linear-gradient(to top,#f8f9fa,transparent);z-index:1}
 .hero-content{position:relative;z-index:2;max-width:900px}
@@ -72,7 +73,6 @@ nav a{text-decoration:none;color:#2d3436;font-weight:600;transition:all .3s;font
 .hero-btn{background:linear-gradient(135deg,#ff6b35,#ff4500);color:#fff;padding:1.5rem 4rem;border:none;border-radius:50px;font-size:1.3rem;font-weight:700;cursor:pointer;box-shadow:0 10px 40px rgba(255,107,53,.5);text-transform:uppercase;letter-spacing:2px;transition:all .3s}
 .hero-btn:hover{transform:translateY(-5px) scale(1.05)}
 
-/* Menu */
 .menu-section{max-width:1200px;margin:4rem auto;padding:0 2rem}
 .section-title{text-align:center;font-size:2.8rem;margin-bottom:3rem;background:linear-gradient(135deg,#2d3436,#ff6b35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:800}
 .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2.5rem}
@@ -92,38 +92,21 @@ nav a{text-decoration:none;color:#2d3436;font-weight:600;transition:all .3s;font
 .add-to-cart{background:linear-gradient(135deg,#ff6b35,#ff4500);color:#fff;border:none;padding:.9rem 2rem;border-radius:25px;cursor:pointer;font-weight:700;transition:all .3s;box-shadow:0 4px 15px rgba(255,107,53,.3)}
 .add-to-cart:hover{transform:translateY(-2px)}
 
-/* Mini Cart */
-.mini-cart{position:fixed;bottom:30px;right:30px;background:rgba(255,255,255,.15);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-radius:20px;box-shadow:0 8px 32px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.3);padding:1.5rem;max-width:340px;z-index:999;transform:translateX(400px);transition:transform .4s;border:1px solid rgba(255,255,255,.3)}
-.mini-cart.show{transform:translateX(0)}
-.mini-cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;padding-bottom:.8rem;border-bottom:1px solid rgba(255,255,255,.2)}
-.mini-cart-title{font-size:1rem;font-weight:600;color:#2d3436}
-.mini-cart-close{background:rgba(255,255,255,.2);border:none;width:28px;height:28px;border-radius:50%;cursor:pointer;color:#636e72;transition:all .3s;display:flex;align-items:center;justify-content:center}
-.mini-cart-close:hover{background:rgba(255,71,87,.2);color:#ff4757;transform:rotate(90deg)}
-.mini-cart-items{max-height:220px;overflow-y:auto;margin-bottom:1rem}
-.mini-cart-item{display:flex;align-items:center;gap:.8rem;padding:.7rem 0;border-bottom:1px solid rgba(255,255,255,.15)}
-.mini-cart-item:last-child{border-bottom:none}
-.mini-cart-item-img{width:50px;height:50px;min-width:50px;border-radius:10px;object-fit:cover;flex-shrink:0}
-.mini-cart-item-info{flex:1;min-width:0}
-.mini-cart-item-name{color:#2d3436;font-weight:600;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mini-cart-item-details{display:flex;justify-content:space-between;font-size:.85rem}
-.mini-cart-item-qty{color:#ff6b35;font-weight:700}
-.mini-cart-item-price{color:#2d3436;font-weight:700}
-.mini-cart-total{display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid rgba(255,255,255,.2);font-weight:600;color:#2d3436}
-.mini-cart-total-amount{color:#ff6b35;font-size:1.2rem;font-weight:700}
-.mini-cart-actions{display:flex;gap:.8rem;margin-top:1rem}
-.mini-cart-btn{flex:1;padding:.8rem;border:none;border-radius:12px;font-weight:600;cursor:pointer;transition:all .3s;font-size:.85rem}
-.mini-cart-btn-view{background:linear-gradient(135deg,#ff6b35,#ff4500);color:#fff}
-.mini-cart-btn-clear{background:rgba(255,255,255,.3);color:#636e72;border:1px solid rgba(255,255,255,.4)}
+.floating-cart{position:fixed;bottom:30px;right:30px;width:70px;height:70px;background:linear-gradient(135deg,#ff6b35,#ff4500);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 32px rgba(255,107,53,.5),inset 0 2px 0 rgba(255,255,255,.3);z-index:998;transition:all .3s;animation:pulse-cart 2s ease-in-out infinite}
+.floating-cart:hover{transform:scale(1.1);box-shadow:0 12px 40px rgba(255,107,53,.7)}
+.floating-cart i{font-size:1.8rem;color:#fff}
+.floating-cart .fc-count{position:absolute;top:-5px;right:-5px;background:#ff2200;color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;border:2px solid #fff}
+@keyframes pulse-cart{0%,100%{box-shadow:0 8px 32px rgba(255,107,53,.5)}50%{box-shadow:0 8px 32px rgba(255,107,53,.8)}}
+.floating-cart.hidden{display:none}
 
-/* Delivery Page */
 .delivery-page{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#f8f9fa;z-index:500;overflow-y:auto}
 .delivery-page.active{display:block}
 .delivery-page-header{background:rgba(255,255,255,.98);padding:1rem 2rem;box-shadow:0 4px 20px rgba(0,0,0,.08);position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center}
 .delivery-page-title{font-size:1.5rem;font-weight:700;color:#2d3436}
 .delivery-back-btn{background:linear-gradient(135deg,#ff6b35,#ff4500);color:#fff;border:none;padding:.7rem 1.5rem;border-radius:25px;cursor:pointer;font-weight:600;transition:all .3s}
 .delivery-page-content{max-width:1200px;margin:0 auto;padding:2rem}
-.delivery-map-container{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.1);margin-bottom:2rem}
-#deliveryMap{height:500px;width:100%}
+.delivery-map-container{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.1);margin-bottom:2rem;height:500px}
+#yandexMap{width:100%;height:100%}
 .delivery-zones-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem}
 .zone-card{background:#fff;border-radius:15px;padding:1.5rem;box-shadow:0 5px 20px rgba(0,0,0,.1);border-left:5px solid;transition:all .3s}
 .zone-card:hover{transform:translateY(-5px)}
@@ -133,7 +116,6 @@ nav a{text-decoration:none;color:#2d3436;font-weight:600;transition:all .3s;font
 .zone-areas{color:#636e72;margin-bottom:1rem;line-height:1.6;font-size:.9rem}
 .zone-price{font-size:1.5rem;font-weight:800;color:#2d3436}.zone-time{color:#636e72;font-size:.9rem}
 
-/* Modal */
 .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
 .modal.active{display:flex}
 .modal-content{background:rgba(255,255,255,.75);backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);border-radius:24px;padding:2.5rem;max-width:500px;width:90%;max-height:90vh;overflow-y:auto;animation:modalSlideIn .5s;box-shadow:0 20px 60px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.4)}
@@ -144,7 +126,6 @@ nav a{text-decoration:none;color:#2d3436;font-weight:600;transition:all .3s;font
 .close-btn{background:rgba(255,255,255,.3);border:none;width:36px;height:36px;border-radius:50%;font-size:1.2rem;cursor:pointer;color:#636e72;transition:all .3s;display:flex;align-items:center;justify-content:center}
 .close-btn:hover{background:rgba(255,71,87,.2);color:#ff4757;transform:rotate(90deg)}
 
-/* Auth */
 .auth-tabs{display:flex;gap:1rem;margin-bottom:2rem;border-bottom:2px solid rgba(241,242,246,.5)}
 .auth-tab{padding:1rem 2rem;background:none;border:none;cursor:pointer;font-size:1.1rem;font-weight:600;color:#636e72;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .3s}
 .auth-tab.active{color:#ff6b35;border-bottom-color:#ff6b35}
@@ -157,7 +138,6 @@ nav a{text-decoration:none;color:#2d3436;font-weight:600;transition:all .3s;font
 .auth-submit{width:100%;background:linear-gradient(135deg,#ff6b35,#ff4500);color:#fff;border:none;padding:1.2rem;border-radius:10px;font-size:1.1rem;font-weight:700;cursor:pointer;margin-top:1rem;transition:all .3s;box-shadow:0 4px 15px rgba(255,107,53,.3)}
 .auth-submit:hover{transform:translateY(-2px)}
 
-/* Cart */
 .cart-items{margin-bottom:2rem}
 .cart-item{display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(255,255,255,.4);border-radius:12px;margin-bottom:.5rem;border-bottom:1px solid rgba(241,242,246,.5)}
 .cart-item-img{width:65px;height:65px;min-width:65px;border-radius:12px;object-fit:cover;flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,.1)}
@@ -182,7 +162,23 @@ nav a{text-decoration:none;color:#2d3436;font-weight:600;transition:all .3s;font
 .cash-info.active{display:block}
 .cash-info h4{color:#155724;margin-bottom:.5rem}.cash-info p{color:#155724;margin:0;font-size:.9rem}
 
-/* Account */
+/* Карточки выбора способа получения */
+.delivery-type-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem}
+.delivery-type-card{background:rgba(255,255,255,.7);border:2px solid rgba(241,242,246,.8);border-radius:15px;padding:1.5rem;cursor:pointer;transition:all .3s;text-align:center}
+.delivery-type-card:hover{border-color:#ff6b35;transform:translateY(-2px)}
+.delivery-type-card.active{border-color:#ff6b35;background:rgba(255,245,240,.8);box-shadow:0 4px 15px rgba(255,107,53,.2)}
+.delivery-type-card .dt-icon{font-size:2.5rem;margin-bottom:.8rem}
+.delivery-type-card .dt-title{font-size:1.1rem;font-weight:700;color:#2d3436;margin-bottom:.3rem}
+.delivery-type-card .dt-desc{font-size:.85rem;color:#636e72}
+
+.address-selection{background:rgba(255,255,255,.6);border-radius:12px;padding:1.2rem;margin-bottom:1.5rem;border:1px solid rgba(255,255,255,.4)}
+.address-selection h4{color:#2d3436;margin-bottom:1rem;font-size:1rem}
+.address-option{display:flex;align-items:center;padding:.8rem;border:2px solid rgba(241,242,246,.8);border-radius:8px;margin-bottom:.5rem;cursor:pointer;transition:all .3s}
+.address-option:hover,.address-option.selected{border-color:#ff6b35;background:rgba(255,245,240,.5)}
+.address-option input[type="radio"]{margin-right:1rem}
+.pickup-info{display:none;background:rgba(212,237,218,.5);border-left:4px solid #2ed573;padding:1rem;border-radius:8px;margin-bottom:1.5rem}
+.pickup-info.active{display:block}
+
 .account-tabs{display:flex;gap:.5rem;margin-bottom:2rem;border-bottom:2px solid rgba(241,242,246,.5);flex-wrap:wrap}
 .account-tab{padding:.8rem 1.5rem;background:none;border:none;cursor:pointer;font-size:.95rem;font-weight:600;color:#636e72;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .3s}
 .account-tab.active{color:#ff6b35;border-bottom-color:#ff6b35}
@@ -201,17 +197,11 @@ nav a{text-decoration:none;color:#2d3436;font-weight:600;transition:all .3s;font
 .address-detail,.card-detail{color:#636e72;font-size:.9rem}
 .add-btn{background:linear-gradient(135deg,#2ed573,#1e90ff);color:#fff;border:none;padding:.8rem 1.5rem;border-radius:10px;cursor:pointer;font-weight:600;transition:all .3s;width:100%;margin-top:1rem}
 .delete-btn{background:rgba(255,71,87,.1);color:#ff4757;border:none;padding:.5rem 1rem;border-radius:8px;cursor:pointer;font-weight:600;font-size:.85rem}
-.address-selection{background:rgba(255,255,255,.6);border-radius:12px;padding:1.2rem;margin-bottom:1.5rem;border:1px solid rgba(255,255,255,.4)}
-.address-selection h4{color:#2d3436;margin-bottom:1rem;font-size:1rem}
-.address-option{display:flex;align-items:center;padding:.8rem;border:2px solid rgba(241,242,246,.8);border-radius:8px;margin-bottom:.5rem;cursor:pointer;transition:all .3s}
-.address-option:hover,.address-option.selected{border-color:#ff6b35;background:rgba(255,245,240,.5)}
-.address-option input[type="radio"]{margin-right:1rem}
 .bonus-usage{background:rgba(255,200,100,.2);border:2px solid #ffc864;border-radius:12px;padding:1.2rem;margin-bottom:1.5rem}
 .bonus-usage h4{color:#2d3436;margin-bottom:.8rem}
 .bonus-usage-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem}
 .bonus-input{width:100px;padding:.5rem;border:2px solid rgba(241,242,246,.8);border-radius:8px;text-align:center;font-weight:700}
 
-/* Admin */
 .admin-section{display:none;max-width:1200px;margin:4rem auto;padding:0 2rem}
 .admin-section.active{display:block}
 .admin-tabs{display:flex;gap:1rem;margin-bottom:2rem;border-bottom:2px solid rgba(241,242,246,.5);flex-wrap:wrap}
@@ -257,7 +247,6 @@ footer p{margin-bottom:1rem;font-size:1.1rem}footer strong{color:#ff6b35}
 @keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
 .nav-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:99}.nav-overlay.active{display:block}
 
-/* MOBILE */
 @media(max-width:768px){
 .welcome-logo{font-size:5rem}.welcome-title{font-size:2.5rem}.welcome-subtitle{font-size:1.2rem}.welcome-text{font-size:1rem;padding:0 1rem}.welcome-btn{padding:1.2rem 2.5rem;font-size:1rem}.welcome-skip{top:15px;right:15px;padding:.7rem 1.2rem;font-size:.85rem}
 header{padding:.8rem 1rem}.logo-img{width:60px;height:60px}.logo-text{font-size:1.8rem}
@@ -270,7 +259,7 @@ nav a{font-size:1.2rem;width:100%;text-align:center;padding:1rem}
 .menu-section{margin:2rem auto;padding:0 .8rem}.section-title{font-size:1.8rem;margin-bottom:1.5rem}
 .menu-grid{grid-template-columns:repeat(3,1fr);gap:.8rem}
 .menu-item-image{height:110px}.menu-item-content{padding:.6rem}.menu-item-title{font-size:.8rem;margin-bottom:.2rem}.menu-item-description{display:none}.menu-item-price{font-size:.9rem}.add-to-cart{padding:.4rem .6rem;font-size:.7rem;width:100%;text-align:center}.menu-item-footer{flex-direction:column;gap:.4rem;align-items:stretch}
-.delivery-page-content{padding:1rem}#deliveryMap{height:300px}
+.delivery-page-content{padding:1rem}.delivery-map-container{height:300px}
 .delivery-zones-grid{grid-template-columns:repeat(3,1fr);gap:.6rem}
 .zone-card{padding:.8rem .6rem}.zone-title{font-size:.85rem;margin-bottom:.4rem}.zone-areas{font-size:.7rem;margin-bottom:.4rem}.zone-price{font-size:1rem}.zone-time{font-size:.7rem}
 .modal-content{width:95%;padding:1.2rem;max-height:95vh}.modal-title{font-size:1.3rem}
@@ -285,8 +274,6 @@ nav a{font-size:1.2rem;width:100%;text-align:center;padding:1rem}
 .cart-item-controls>span{min-width:18px;text-align:center;font-size:.85rem}
 .remove-btn{padding:.4rem .6rem;font-size:.75rem}
 .cart-total{font-size:1.2rem;margin:1rem 0}
-.mini-cart{bottom:0;right:0;left:0;max-width:none;border-radius:20px 20px 0 0;transform:translateY(150%);padding:1rem}.mini-cart.show{transform:translateY(0)}
-.mini-cart-item-img{width:40px;height:40px;min-width:40px}
 .admin-section{margin:2rem auto;padding:0 1rem}.admin-tabs{gap:.3rem}.admin-tab{padding:.6rem 1rem;font-size:.85rem}
 .admin-products-container{padding:1rem}.admin-product-card{padding:1rem}.admin-product-card-body{grid-template-columns:1fr}.admin-product-card-header{flex-direction:column;align-items:flex-start;gap:.8rem}
 .add-product-form{padding:1rem}.order-item{padding:1rem}.order-header{flex-direction:column;align-items:flex-start;gap:.5rem}
@@ -297,6 +284,10 @@ footer{padding:2rem 1rem}footer p{font-size:.9rem}
 .bonus-amount{font-size:2.5rem}
 .address-card,.card-item-card{flex-direction:column;align-items:flex-start;gap:.6rem}.delete-btn{align-self:flex-end}
 .bonus-usage-row{flex-direction:column;gap:.5rem;align-items:flex-start}
+.floating-cart{width:60px;height:60px;bottom:20px;right:20px}
+.floating-cart i{font-size:1.5rem}
+.floating-cart .fc-count{width:24px;height:24px;font-size:.75rem}
+.delivery-type-cards{grid-template-columns:1fr}
 }
 @media(max-width:480px){
 .welcome-title{font-size:2rem}.hero h1{font-size:2.5rem}.section-title{font-size:1.5rem}
@@ -307,7 +298,6 @@ footer{padding:2rem 1rem}footer p{font-size:.9rem}
 </head>
 <body>
 
-<!-- Welcome -->
 <div class="welcome-screen" id="welcomeScreen">
 <div class="fire-particle"></div><div class="fire-particle"></div><div class="fire-particle"></div><div class="fire-particle"></div><div class="fire-particle"></div><div class="fire-particle"></div><div class="fire-particle"></div><div class="fire-particle"></div><div class="fire-particle"></div>
 <button class="welcome-skip" onclick="skipWelcome()"><i class="fas fa-forward"></i> Пропустить</button>
@@ -320,7 +310,6 @@ footer{padding:2rem 1rem}footer p{font-size:.9rem}
 </div>
 </div>
 
-<!-- Header -->
 <header>
 <div class="header-content">
 <div class="logo">
@@ -343,14 +332,13 @@ footer{padding:2rem 1rem}footer p{font-size:.9rem}
 </header>
 <div class="nav-overlay" id="navOverlay" onclick="closeMenu()"></div>
 
-<!-- Delivery Page -->
 <div class="delivery-page" id="deliveryPage">
 <div class="delivery-page-header">
 <div class="delivery-page-title"><i class="fas fa-map-marked-alt" style="color:#ff6b35"></i> Зоны доставки</div>
 <button class="delivery-back-btn" onclick="closeDeliveryPage()"><i class="fas fa-arrow-left"></i> Назад</button>
 </div>
 <div class="delivery-page-content">
-<div class="delivery-map-container"><div id="deliveryMap"></div></div>
+<div class="delivery-map-container"><div id="yandexMap"></div></div>
 <h2 style="text-align:center;font-size:1.8rem;margin-bottom:1.5rem;color:#2d3436"><i class="fas fa-truck" style="color:#ff6b35"></i> Зоны доставки г. Снежное</h2>
 <div class="delivery-zones-grid">
 <div class="zone-card zone-1"><div class="zone-title"><i class="fas fa-check-circle"></i> Зона 1</div><div class="zone-areas"><strong>Центр:</strong><br>• Центр города<br>• ул. Ленина<br>• ул. Победы<br>• ул. Шевченко<br>• Новый Донбасс</div><div class="zone-price"><i class="fas fa-gift"></i> Бесплатно</div><div class="zone-time"><i class="fas fa-clock"></i> 30-40 мин</div></div>
@@ -360,13 +348,10 @@ footer{padding:2rem 1rem}footer p{font-size:.9rem}
 </div>
 </div>
 
-<!-- Hero -->
 <section class="hero"><div class="hero-content"><h1>ISKRA</h1><p class="hero-subtitle">Шаурма • Курица Гриль • Пицца • Бургеры</p><p>Сочная шаурма, хрустящая курица гриль и пицца<br>Быстрая доставка по г. Снежное</p><button class="hero-btn" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})"><i class="fas fa-fire"></i> Заказать сейчас</button></div></section>
 
-<!-- Menu -->
 <section class="menu-section" id="menu"><h2 class="section-title"><i class="fas fa-utensils"></i> Наше меню</h2><div class="menu-grid" id="menuGrid"></div></section>
 
-<!-- Admin -->
 <section class="admin-section" id="adminSection">
 <h2 class="section-title"><i class="fas fa-cog"></i> Админ-панель ISKRA</h2>
 <div class="admin-tabs">
@@ -381,12 +366,15 @@ footer{padding:2rem 1rem}footer p{font-size:.9rem}
 <div class="admin-panel" id="adminOrders"><div class="orders-list" id="ordersList"><p style="padding:2rem;text-align:center;color:#636e72">Заказов пока нет</p></div></div>
 </section>
 
-<!-- Auth Modal -->
 <div class="modal" id="authModal"><div class="modal-content"><div class="modal-header"><h2 class="modal-title">Авторизация</h2><button class="close-btn" onclick="closeAuth()"><i class="fas fa-times"></i></button></div><div class="auth-tabs"><button class="auth-tab active" onclick="switchAuthTab('login')">Вход</button><button class="auth-tab" onclick="switchAuthTab('register')">Регистрация</button></div>
-<form class="auth-form active" id="loginForm" onsubmit="login(event)"><div class="form-group"><label>Email</label><input type="email" id="loginEmail" required></div><div class="form-group"><label>Пароль</label><input type="password" id="loginPassword" required></div><button type="submit" class="auth-submit">Войти</button><p style="margin-top:1rem;color:#636e72;font-size:.9rem;text-align:center">Админ: <strong>admin@iskra.ru</strong> / <strong>admin123</strong></p></form>
+<form class="auth-form active" id="loginForm" onsubmit="login(event)">
+<div class="form-group"><label>Email или телефон</label><input type="text" id="loginEmailOrPhone" required placeholder="example@mail.com или +7 (999) 123-45-67"></div>
+<div class="form-group"><label>Пароль</label><input type="password" id="loginPassword" required></div>
+<button type="submit" class="auth-submit">Войти</button>
+<p style="margin-top:1rem;color:#636e72;font-size:.9rem;text-align:center">Админ: <strong>admin@iskra.ru</strong> / <strong>admin123</strong></p>
+</form>
 <form class="auth-form" id="registerForm" onsubmit="register(event)"><div class="form-group"><label>Имя</label><input type="text" id="regName" required></div><div class="form-group"><label>Email</label><input type="email" id="regEmail" required></div><div class="form-group"><label>Телефон</label><input type="tel" id="regPhone" required></div><div class="form-group"><label>Адрес</label><input type="text" id="regAddress" required></div><div class="form-group"><label>Зона</label><select id="regZone" required><option value="">Выберите</option><option value="1">Зона 1 (бесплатно)</option><option value="2">Зона 2 (100₽)</option><option value="3">Зона 3 (150₽)</option></select></div><div class="form-group"><label>Пароль</label><input type="password" id="regPassword" required minlength="6"></div><div class="form-group"><label>Повторите</label><input type="password" id="regPasswordConfirm" required></div><button type="submit" class="auth-submit">Зарегистрироваться</button></form></div></div>
 
-<!-- Account Modal -->
 <div class="modal" id="accountModal"><div class="modal-content large"><div class="modal-header"><h2 class="modal-title"><i class="fas fa-user-circle" style="color:#ff6b35"></i> Аккаунт</h2><button class="close-btn" onclick="closeAccount()"><i class="fas fa-times"></i></button></div>
 <div class="account-tabs"><button class="account-tab active" onclick="switchAccountTab('info')"><i class="fas fa-info-circle"></i> Инфо</button><button class="account-tab" onclick="switchAccountTab('addresses')"><i class="fas fa-map-marker-alt"></i> Адреса</button><button class="account-tab" onclick="switchAccountTab('cards')"><i class="fas fa-credit-card"></i> Карты</button><button class="account-tab" onclick="switchAccountTab('bonuses')"><i class="fas fa-gift"></i> Бонусы</button></div>
 <div class="account-panel active" id="accountInfo"><div class="account-info-card"><div class="account-info-row"><span class="account-info-label">ID</span><span class="account-info-value" id="accountId">-</span></div><div class="account-info-row"><span class="account-info-label">Имя</span><span class="account-info-value" id="accountName">-</span></div><div class="account-info-row"><span class="account-info-label">Email</span><span class="account-info-value" id="accountEmail">-</span></div><div class="account-info-row"><span class="account-info-label">Телефон</span><span class="account-info-value" id="accountPhone">-</span></div><div class="account-info-row"><span class="account-info-label">Адрес</span><span class="account-info-value" id="accountAddress">-</span></div></div><h3 style="margin:1.5rem 0 1rem;color:#2d3436">Изменить данные</h3><form onsubmit="updateAccountInfo(event)"><div class="form-group"><label>Имя</label><input type="text" id="editName" required></div><div class="form-group"><label>Email</label><input type="email" id="editEmail" required></div><div class="form-group"><label>Телефон</label><input type="tel" id="editPhone" required></div><div class="form-group"><label>Адрес</label><input type="text" id="editAddress" required></div><button type="submit" class="auth-submit">Сохранить</button></form></div>
@@ -395,28 +383,41 @@ footer{padding:2rem 1rem}footer p{font-size:.9rem}
 <div class="account-panel" id="accountBonuses"><div class="bonus-card"><div class="bonus-label">Ваши бонусы</div><div class="bonus-amount" id="bonusAmount">0</div><div class="bonus-label">1 бонус = 1 рубль</div></div><div class="account-info-card"><h4 style="margin-bottom:1rem">Как начисляются?</h4><div class="account-info-row"><span class="account-info-label">За заказ</span><span class="account-info-value" style="color:#ff6b35">5% от суммы</span></div><div class="account-info-row"><span class="account-info-label">Мин. заказ</span><span class="account-info-value">500 ₽</span></div><div class="account-info-row"><span class="account-info-label">Макс. за заказ</span><span class="account-info-value">500 бонусов</span></div></div><div class="account-info-card"><h4 style="margin-bottom:1rem">История</h4><div id="bonusHistory"><p style="text-align:center;color:#636e72;padding:1rem">Пусто</p></div></div></div>
 </div></div>
 
-<!-- Cart Modal -->
-<div class="modal" id="cartModal"><div class="modal-content"><div class="modal-header"><h2 class="modal-title">Корзина</h2><button class="close-btn" onclick="closeCart()"><i class="fas fa-times"></i></button></div>
+<div class="modal" id="cartModal"><div class="modal-content">
+<div class="modal-header"><h2 class="modal-title">Корзина</h2><button class="close-btn" onclick="closeCart()"><i class="fas fa-times"></i></button></div>
 
-<!-- Cart View -->
-<div id="cartView"><div class="cart-items" id="cartItems"></div>
+<div id="stepCart">
+<div class="cart-items" id="cartItems"></div>
 
-<!-- Самовывоз -->
-<div class="address-selection" id="pickupOption" style="display:none">
-<h4><i class="fas fa-store" style="color:#ff6b35"></i> Способ получения</h4>
-<label class="address-option" onclick="selectPickup(event)">
-<input type="radio" name="deliveryType" value="pickup">
-<div style="flex:1"><div style="font-weight:700"> Самовывоз из ISKRA</div><div style="font-size:.85rem;color:#636e72">г. Снежное, ул. Ленина, 32</div><div style="font-size:.8rem;color:#2ed573;font-weight:600">Бесплатно • 15-20 мин</div></div>
-</label>
+<!-- Выбор способа получения -->
+<div class="address-selection">
+<h4><i class="fas fa-truck" style="color:#ff6b35"></i> Способ получения</h4>
+<div class="delivery-type-cards">
+<div class="delivery-type-card" id="dtPickup" onclick="toggleDeliveryType('pickup')">
+<div class="dt-icon">🏪</div>
+<div class="dt-title">Самовывоз</div>
+<div class="dt-desc">Бесплатно • 15-20 мин</div>
+</div>
+<div class="delivery-type-card" id="dtDelivery" onclick="toggleDeliveryType('delivery')">
+<div class="dt-icon">🚗</div>
+<div class="dt-title">Доставка</div>
+<div class="dt-desc">От 30 мин</div>
+</div>
+</div>
 </div>
 
-<!-- Адреса доставки -->
+<!-- Инфо о самовывозе -->
+<div class="pickup-info" id="pickupInfo">
+<strong>🏪 Самовывоз из ISKRA</strong><br>
+<span style="font-size:.9rem">г. Снежное, ул. Ленина, 32<br>Ежедневно 10:00 - 22:00</span>
+</div>
+
+<!-- Список адресов (для доставки, зарегистрированные) -->
 <div class="address-selection" id="addressSelection" style="display:none">
-<h4><i class="fas fa-map-marker-alt" style="color:#ff6b35"></i> Адрес доставки</h4>
+<h4><i class="fas fa-map-marker-alt" style="color:#ff6b35"></i> Выберите адрес</h4>
 <div id="addressOptions"></div>
 </div>
 
-<!-- Бонусы -->
 <div class="bonus-usage" id="bonusUsage" style="display:none">
 <h4><i class="fas fa-gift" style="color:#ffc864"></i> Использовать бонусы</h4>
 <div class="bonus-usage-row">
@@ -425,130 +426,141 @@ footer{padding:2rem 1rem}footer p{font-size:.9rem}
 </div>
 <div style="font-size:.9rem">Списано: <strong id="bonusUsed">0</strong> = <strong id="bonusDiscount">0</strong> ₽</div>
 </div>
-
 <div class="cart-total" id="cartTotal">Итого: 0 ₽</div>
-<button class="checkout-btn" onclick="showPayment()">Оформить заказ</button>
+<button class="checkout-btn" onclick="goToCheckout()">Оформить заказ</button>
 </div>
 
-<!-- Guest Checkout View -->
-<div id="guestCheckoutView" style="display:none">
-<h3 style="margin-bottom:1.5rem"><i class="fas fa-user"></i> Данные для заказа</h3>
-<form onsubmit="event.preventDefault();proceedWithGuest()">
+<div id="stepGuest" style="display:none">
+<h3 style="margin-bottom:1.5rem"><i class="fas fa-user"></i> Данные для доставки</h3>
+<form onsubmit="submitGuest(event)">
 <div class="form-group"><label>Имя *</label><input type="text" id="guestName" required></div>
 <div class="form-group"><label>Телефон *</label><input type="tel" id="guestPhone" required></div>
 <div class="form-group"><label>Email</label><input type="email" id="guestEmail"></div>
 <div class="form-group"><label>Адрес доставки *</label><input type="text" id="guestAddress" required placeholder="г. Снежное, ул. Ленина, д. 1"></div>
 <div class="form-group"><label>Зона доставки *</label><select id="guestZone" required><option value="">Выберите</option><option value="1">Зона 1 - Центр (бесплатно)</option><option value="2">Зона 2 - Пригород (100₽)</option><option value="3">Зона 3 - Отдалённые (150₽)</option></select></div>
-<button type="submit" class="checkout-btn">Продолжить к оплате <i class="fas fa-arrow-right"></i></button>
+<button type="submit" class="checkout-btn">Продолжить <i class="fas fa-arrow-right"></i></button>
 </form>
-<button class="btn btn-secondary" onclick="backFromGuest()" style="margin-top:1rem;width:100%"><i class="fas fa-arrow-left"></i> Назад</button>
+<button class="btn btn-secondary" onclick="goToStep('stepCart')" style="margin-top:1rem;width:100%"><i class="fas fa-arrow-left"></i> Назад</button>
 </div>
 
-<!-- Payment Method View -->
-<div id="paymentMethodView" style="display:none">
+<div id="stepGuestPickup" style="display:none">
+<h3 style="margin-bottom:1.5rem"><i class="fas fa-user"></i> Ваши данные для самовывоза</h3>
+<form onsubmit="submitGuestPickup(event)">
+<div class="form-group"><label>Имя *</label><input type="text" id="guestPickupName" required></div>
+<div class="form-group"><label>Телефон *</label><input type="tel" id="guestPickupPhone" required></div>
+<div class="form-group"><label>Email</label><input type="email" id="guestPickupEmail"></div>
+<button type="submit" class="checkout-btn">Продолжить <i class="fas fa-arrow-right"></i></button>
+</form>
+<button class="btn btn-secondary" onclick="goToStep('stepCart')" style="margin-top:1rem;width:100%"><i class="fas fa-arrow-left"></i> Назад</button>
+</div>
+
+<div id="stepPayment" style="display:none">
 <h3 style="margin-bottom:1.5rem"><i class="fas fa-credit-card"></i> Способ оплаты</h3>
 <label class="payment-method-option" onclick="selectPaymentMethod('cash',event)">
 <input type="radio" name="paymentMethod" value="cash">
-<div style="flex:1;margin-left:1rem"><div style="font-weight:700"><i class="fas fa-money-bill-wave" style="color:#2ed573"></i> Наличные</div><div style="font-size:.9rem;color:#636e72">Курьеру при доставке</div></div>
+<div style="flex:1;margin-left:1rem"><div style="font-weight:700"><i class="fas fa-money-bill-wave" style="color:#2ed573"></i> Наличные</div><div style="font-size:.9rem;color:#636e72">При получении / на кассе</div></div>
 </label>
 <label class="payment-method-option" onclick="selectPaymentMethod('card',event)">
 <input type="radio" name="paymentMethod" value="card">
-<div style="flex:1;margin-left:1rem"><div style="font-weight:700"><i class="fas fa-credit-card" style="color:#ff6b35"></i> Картой</div><div style="font-size:.9rem;color:#636e72">Visa, MasterCard, МИР</div></div>
+<div style="flex:1;margin-left:1rem"><div style="font-weight:700"><i class="fas fa-credit-card" style="color:#ff6b35"></i> Картой онлайн</div><div style="font-size:.9rem;color:#636e72">Visa, MasterCard, МИР</div></div>
 </label>
-<button class="checkout-btn" onclick="proceedToPayment()" style="margin-top:1rem">Продолжить <i class="fas fa-arrow-right"></i></button>
-<button class="btn btn-secondary" onclick="backToCartView()" style="margin-top:1rem;width:100%"><i class="fas fa-arrow-left"></i> Назад</button>
+<button class="checkout-btn" onclick="goToPaymentForm()" style="margin-top:1rem">Продолжить <i class="fas fa-arrow-right"></i></button>
+<button class="btn btn-secondary" onclick="goToPrevStep()" style="margin-top:1rem;width:100%"><i class="fas fa-arrow-left"></i> Назад</button>
 </div>
 
-<!-- Cash Info -->
-<div id="cashInfo" class="cash-info"><h4><i class="fas fa-info-circle"></i> Наличные</h4><p>Оплатите курьеру при получении. При самовывозе - на кассе.</p></div>
-
-<!-- Payment Form -->
-<div class="payment-form" id="paymentForm">
+<div id="stepPayForm" style="display:none">
+<div id="cashInfo" class="cash-info" style="display:block"><h4><i class="fas fa-info-circle"></i> Наличные</h4><p>Оплатите курьеру при доставке или на кассе при самовывозе.</p></div>
+<div class="payment-form" id="cardForm">
 <h3 style="margin-bottom:1.5rem"><i class="fas fa-credit-card"></i> Оплата картой</h3>
-<form onsubmit="processPayment(event)">
-<div id="cardFields">
-<div class="form-group"><label>Номер карты</label><input type="text" id="cardNumber" maxlength="19" required></div>
-<div class="card-row"><div class="form-group"><label>Срок</label><input type="text" id="cardExpiry" maxlength="5" required></div><div class="form-group"><label>CVV</label><input type="text" id="cardCvv" maxlength="3" required></div></div>
-<div class="form-group"><label>Владелец</label><input type="text" id="cardName" required></div>
+<div class="form-group"><label>Номер карты</label><input type="text" id="cardNumber" maxlength="19"></div>
+<div class="card-row"><div class="form-group"><label>Срок</label><input type="text" id="cardExpiry" maxlength="5"></div><div class="form-group"><label>CVV</label><input type="text" id="cardCvv" maxlength="3"></div></div>
+<div class="form-group"><label>Владелец</label><input type="text" id="cardName"></div>
 </div>
-<button type="submit" class="pay-btn" id="payBtn">Оплатить</button>
-</form>
-<button class="btn btn-secondary" onclick="backToPaymentMethod()" style="margin-top:1rem;width:100%"><i class="fas fa-arrow-left"></i> Назад</button>
+<button class="pay-btn" id="payBtn" onclick="processPayment()">Подтвердить заказ</button>
+<button class="btn btn-secondary" onclick="goToStep('stepPayment')" style="margin-top:1rem;width:100%"><i class="fas fa-arrow-left"></i> Назад</button>
 </div>
 
-<!-- Success -->
-<div class="success-message" id="successMessage">
+<div class="success-message" id="stepSuccess">
 <div class="success-icon"><i class="fas fa-check-circle"></i></div>
 <h3>Заказ оформлен!</h3>
-<p>Доставка в течение 30-60 минут</p>
+<p id="successText">Доставка в течение 30-60 минут</p>
 <p style="margin-top:1rem;color:#ff6b35;font-weight:700" id="bonusEarnedMessage"></p>
 <button class="checkout-btn" onclick="closeCart()" style="margin-top:1.5rem">Закрыть</button>
 </div>
 
 </div></div>
 
-<!-- Mini Cart -->
-<div class="mini-cart" id="miniCart">
-<div class="mini-cart-header"><div class="mini-cart-title"><i class="fas fa-shopping-cart"></i> Корзина</div><button class="mini-cart-close" onclick="hideMiniCart()"><i class="fas fa-times"></i></button></div>
-<div class="mini-cart-items" id="miniCartItems"></div>
-<div class="mini-cart-total"><span>Итого:</span><span class="mini-cart-total-amount" id="miniCartTotal">0 ₽</span></div>
-<div class="mini-cart-actions">
-<button class="mini-cart-btn mini-cart-btn-clear" onclick="clearCartFromMini()"><i class="fas fa-trash"></i> Очистить</button>
-<button class="mini-cart-btn mini-cart-btn-view" onclick="openCartFromMini()"><i class="fas fa-eye"></i> Открыть</button>
-</div>
+<div class="floating-cart hidden" id="floatingCart" onclick="openCart()">
+<i class="fas fa-shopping-cart"></i>
+<span class="fc-count" id="fcCount">0</span>
 </div>
 
 <footer id="contact"><p>&copy; 2026 <strong>ISKRA</strong> - Шаурма, Курица Гриль, Пицца | г. Снежное</p><p><i class="fas fa-phone"></i> +7 (999) 123-45-67 | <i class="fas fa-envelope"></i> info@iskra-snezhnoe.ru</p><p><i class="fas fa-clock"></i> Ежедневно 10:00 - 22:00</p></footer>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-// Data
 const foodImages={shawarma:{main:'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=600&h=400&fit=crop',fallback:'https://cdn-icons-png.flaticon.com/512/2921/2921822.png'},chicken:{main:'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=600&h=400&fit=crop',fallback:'https://cdn-icons-png.flaticon.com/512/1046/1046784.png'},chickenLegs:{main:'https://images.unsplash.com/photo-1587593810167-a84920ea0781?w=600&h=400&fit=crop',fallback:'https://cdn-icons-png.flaticon.com/512/3075/3075977.png'},chickenFillet:{main:'https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=600&h=400&fit=crop',fallback:'https://cdn-icons-png.flaticon.com/512/2515/2515252.png'},shawarmaXL:{main:'https://images.unsplash.com/photo-1561651823-34feb02250e4?w=600&h=400&fit=crop',fallback:'https://cdn-icons-png.flaticon.com/512/2921/2921822.png'},burger:{main:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&h=400&fit=crop',fallback:'https://cdn-icons-png.flaticon.com/512/3075/3075977.png'},fries:{main:'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&h=400&fit=crop',fallback:'https://cdn-icons-png.flaticon.com/512/1046/1046784.png'},drink:{main:'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=600&h=400&fit=crop',fallback:'https://cdn-icons-png.flaticon.com/512/2515/2515252.png'},pizza:{main:'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&h=400&fit=crop',fallback:'https://cdn-icons-png.flaticon.com/512/2515/2515252.png'}};
 const foodIcons={shawarma:'fa-burrito',chicken:'fa-drumstick-bite',chickenLegs:'fa-drumstick-bite',chickenFillet:'fa-drumstick-bite',shawarmaXL:'fa-burrito',burger:'fa-burger',fries:'fa-french-fries',drink:'fa-glass-water',pizza:'fa-pizza-slice'};
 
-// State
 let menuItems=loadData('menuItems',[{id:1,name:'Классическая шаурма',description:'Сочное мясо, овощи, соус',price:250,type:'shawarma'},{id:2,name:'Шаурма с курицей',description:'Куриное филе, чесночный соус',price:280,type:'shawarma'},{id:3,name:'Курица гриль целая',description:'Целая курица на гриле',price:450,type:'chicken'},{id:4,name:'Куриные ножки гриль',description:'4 ножки с корочкой',price:320,type:'chickenLegs'},{id:5,name:'Шаурма XL',description:'Двойное мясо',price:350,type:'shawarmaXL'},{id:6,name:'Куриное филе гриль',description:'Сочное филе с овощами',price:380,type:'chickenFillet'},{id:7,name:'Пицца Пепперони',description:'Пепперони, моцарелла',price:450,type:'pizza'},{id:8,name:'Пицца Маргарита',description:'Моцарелла, томаты, базилик',price:380,type:'pizza'},{id:9,name:'Бургер классический',description:'Котлета, овощи, сыр',price:320,type:'burger'},{id:10,name:'Картофель фри',description:'Хрустящий картофель',price:150,type:'fries'},{id:11,name:'Лимонад ягодный',description:'Освежающий лимонад',price:180,type:'drink'}]);
 const defaultAdmin={id:0,name:'Администратор ISKRA',email:'admin@iskra.ru',phone:'+7 (999) 000-00-00',address:'г. Снежное',zone:1,password:'admin123',isAdmin:true,registerDate:new Date().toISOString(),bonuses:0,bonusHistory:[],addresses:[],cards:[]};
-let users=loadData('users',[defaultAdmin]),orders=loadData('orders',[]),currentUser=loadData('currentUser',null),cart=[],selectedPaymentMethod=null,miniCartTimeout=null,selectedAddress=null,bonusToUse=0,guestData=null;
+let users=loadData('users',[defaultAdmin]),orders=loadData('orders',[]),currentUser=loadData('currentUser',null),cart=[],selectedPaymentMethod=null,miniCartTimeout=null,selectedAddress=null,bonusToUse=0,guestData=null,prevStep='stepCart',deliveryType=null;
 
 const deliveryZones={zone1:{name:"Зона 1",price:0,time:"30-40 мин",color:"#2ed573",center:[48.073955,38.693535],radius:2000},zone2:{name:"Зона 2",price:100,time:"40-50 мин",color:"#ffa502",locations:[{name:"Андреевка",coords:[48.0156,38.7234]},{name:"Горняцкое",coords:[48.0512,38.7891]},{name:"Залесное",coords:[48.0623,38.7456]},{name:"Первомайское",coords:[48.0289,38.7912]},{name:"Победа",coords:[48.0445,38.7345]}]},zone3:{name:"Зона 3",price:150,time:"50-60 мин",color:"#ff4757",locations:[{name:"Бражино",coords:[48.0789,38.7123]},{name:"Лиманчук",coords:[48.0123,38.8234]},{name:"Никифорово",coords:[48.0678,38.8456]},{name:"Северное",coords:[48.0912,38.7567]},{name:"Молчалино",coords:[47.9989,38.7234]}]}};
 
-// Storage
 function loadData(k,d){const v=localStorage.getItem(k);return v?JSON.parse(v):d}
 function saveData(k,v){localStorage.setItem(k,JSON.stringify(v))}
 
-// Map
-let map,markers=[];
-function initMap(){if(map)return;map=L.map('deliveryMap').setView([48.073955,38.693535],13);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OSM',maxZoom:19}).addTo(map);const z1=L.circle(deliveryZones.zone1.center,{radius:deliveryZones.zone1.radius,color:deliveryZones.zone1.color,fillColor:deliveryZones.zone1.color,fillOpacity:.2,weight:2}).addTo(map);z1.bindPopup('<b>Зона 1</b><br>Бесплатно');markers.push(z1);deliveryZones.zone2.locations.forEach(l=>{const m=L.circleMarker(l.coords,{radius:10,color:deliveryZones.zone2.color,fillColor:deliveryZones.zone2.color,fillOpacity:.6,weight:2}).addTo(map);m.bindPopup(`<b>${l.name}</b><br>100 ₽`);markers.push(m)});deliveryZones.zone3.locations.forEach(l=>{const m=L.circleMarker(l.coords,{radius:10,color:deliveryZones.zone3.color,fillColor:deliveryZones.zone3.color,fillOpacity:.6,weight:2}).addTo(map);m.bindPopup(`<b>${l.name}</b><br>150 ₽`);markers.push(m)});const ri=L.divIcon({html:'<i class="fas fa-fire" style="color:#ff6b35;font-size:30px"></i>',iconSize:[35,35],className:''});L.marker([48.073955,38.693535],{icon:ri}).addTo(map).bindPopup('<b>🔥 ISKRA</b><br>г. Снежное')}
-
-// UI Functions
 function toggleMenu(){const b=document.getElementById('burger'),n=document.getElementById('nav'),o=document.getElementById('navOverlay');b.classList.toggle('active');n.classList.toggle('active');o.classList.toggle('active');document.body.style.overflow=n.classList.contains('active')?'hidden':''}
 function closeMenu(){document.getElementById('burger').classList.remove('active');document.getElementById('nav').classList.remove('active');document.getElementById('navOverlay').classList.remove('active');document.body.style.overflow=''}
 function closeWelcome(){const w=document.getElementById('welcomeScreen');w.classList.add('hidden');setTimeout(()=>{w.style.display='none'},800)}
 function skipWelcome(){closeWelcome()}
-function openDeliveryPage(){document.getElementById('deliveryPage').classList.add('active');document.body.style.overflow='hidden';setTimeout(()=>{if(!map)initMap();else map.invalidateSize()},100)}
+function openDeliveryPage(){document.getElementById('deliveryPage').classList.add('active');document.body.style.overflow='hidden'}
 function closeDeliveryPage(){document.getElementById('deliveryPage').classList.remove('active');document.body.style.overflow=''}
 
-// Render Menu
 function renderMenu(){document.getElementById('menuGrid').innerHTML=menuItems.map(i=>{const img=foodImages[i.type]||foodImages.shawarma;const ic=foodIcons[i.type]||'fa-utensils';return`<div class="menu-item"><div class="menu-item-image" id="menuImg_${i.id}"><i class="fas ${ic} fallback-icon"></i><img src="${img.main}" alt="${i.name}" loading="lazy" onload="this.parentElement.classList.add('has-image')" onerror="handleImgErr(this,'${i.type}','${i.id}')"></div><div class="menu-item-content"><h3 class="menu-item-title">${i.name}</h3><p class="menu-item-description">${i.description}</p><div class="menu-item-footer"><span class="menu-item-price">${i.price} ₽</span><button class="add-to-cart" onclick="addToCart(${i.id})"><i class="fas fa-cart-plus"></i> В корзину</button></div></div></div>`}).join('')}
 function handleImgErr(el,t,id){const img=foodImages[t];if(img&&el.src!==img.fallback)el.src=img.fallback;else{el.style.display='none';const c=document.getElementById('menuImg_'+id);if(c)c.classList.remove('has-image')}}
 
-// Users
 function renderUsers(){const l=document.getElementById('usersList'),t=document.getElementById('totalUsers');if(!l)return;t.textContent=users.length;if(!users.length){l.innerHTML='<p style="text-align:center;padding:2rem;color:#636e72">Пусто</p>';return}l.innerHTML=`<table class="users-table"><thead><tr><th>ID</th><th>Имя</th><th>Email</th><th>Телефон</th><th>Зона</th><th>Роль</th><th>Дата</th></tr></thead><tbody>${users.map(u=>`<tr><td>${u.id}</td><td>${u.name}</td><td>${u.email}</td><td>${u.phone||'-'}</td><td>Зона ${u.zone||'-'}</td><td><span class="user-badge ${u.isAdmin?'admin':'user'}">${u.isAdmin?'Админ':'User'}</span></td><td>${u.registerDate?new Date(u.registerDate).toLocaleDateString('ru-RU'):'-'}</td></tr>`).join('')}</tbody></table>`}
 
-// Init
 document.addEventListener('DOMContentLoaded',()=>{renderMenu();updateUserSection();const s=loadData('currentUser',null);if(s){currentUser=s;const w=document.getElementById('welcomeScreen');if(w)w.style.display='none'}else{const w=document.getElementById('welcomeScreen');if(w)w.style.display='flex'}['cardNumber','cardNumberInput'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('input',e=>{let v=e.target.value.replace(/\s/g,'').replace(/\D/g,'');e.target.value=v.match(/.{1,4}/g)?.join(' ')||v})});['cardExpiry','cardExpiryInput'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('input',e=>{let v=e.target.value.replace(/\D/g,'');if(v.length>=2)v=v.substring(0,2)+'/'+v.substring(2,4);e.target.value=v})})});
 
-// Auth
 function openAuth(){document.getElementById('authModal').classList.add('active');closeMenu()}
 function closeAuth(){document.getElementById('authModal').classList.remove('active');document.getElementById('loginForm').reset();document.getElementById('registerForm').reset();switchAuthTab('login')}
 function switchAuthTab(t){document.querySelectorAll('.auth-tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.auth-form').forEach(x=>x.classList.remove('active'));if(t==='login'){document.querySelectorAll('.auth-tab')[0].classList.add('active');document.getElementById('loginForm').classList.add('active')}else{document.querySelectorAll('.auth-tab')[1].classList.add('active');document.getElementById('registerForm').classList.add('active')}}
+
+// ВХОД ПО EMAIL ИЛИ ТЕЛЕФОНУ
+function login(e){
+e.preventDefault();
+const input=document.getElementById('loginEmailOrPhone').value.trim();
+const pw=document.getElementById('loginPassword').value;
+if(!input){showNotification('Введите email или телефон!','error');return}
+
+let user=null;
+// Определяем, email это или телефон
+if(input.includes('@')){
+    // Поиск по email
+    user=users.find(u=>u.email.toLowerCase()===input.toLowerCase()&&u.password===pw);
+}else{
+    // Поиск по телефону (нормализуем - убираем всё кроме цифр)
+    const cleanInput=input.replace(/\D/g,'');
+    user=users.find(u=>{
+        const cleanPhone=(u.phone||'').replace(/\D/g,'');
+        return cleanPhone.includes(cleanInput)&&u.password===pw;
+    });
+}
+
+if(!user){showNotification('Неверные данные!','error');return}
+currentUser=user;
+saveData('currentUser',user);
+closeAuth();
+updateUserSection();
+showNotification(`С возвращением, ${user.name}!`,'success');
+}
+
 function register(e){e.preventDefault();const n=document.getElementById('regName').value.trim(),em=document.getElementById('regEmail').value.trim().toLowerCase(),p=document.getElementById('regPhone').value.trim(),a=document.getElementById('regAddress').value.trim(),z=parseInt(document.getElementById('regZone').value),pw=document.getElementById('regPassword').value,pc=document.getElementById('regPasswordConfirm').value;if(pw!==pc){showNotification('Пароли не совпадают!','error');return}if(users.find(u=>u.email===em)){showNotification('Email уже существует!','error');return}const u={id:Date.now(),name:n,email:em,phone:p,address:a,zone:z,password:pw,isAdmin:false,registerDate:new Date().toISOString(),bonuses:0,bonusHistory:[],addresses:[{id:Date.now(),title:'Основной',full:a,zone:z}],cards:[]};users.push(u);saveData('users',users);currentUser=u;saveData('currentUser',u);closeAuth();updateUserSection();showNotification(`Добро пожаловать, ${n}!`,'success')}
-function login(e){e.preventDefault();const em=document.getElementById('loginEmail').value.trim().toLowerCase(),pw=document.getElementById('loginPassword').value;const u=users.find(x=>x.email===em&&x.password===pw);if(!u){showNotification('Неверный email или пароль!','error');return}currentUser=u;saveData('currentUser',u);closeAuth();updateUserSection();showNotification(`С возвращением, ${u.name}!`,'success')}
 function logout(){currentUser=null;localStorage.removeItem('currentUser');updateUserSection();document.getElementById('adminSection').classList.remove('active');showNotification('Вы вышли','info')}
 function updateUserSection(){const s=document.getElementById('userSection');if(currentUser){let h=`<span class="user-name"><i class="fas fa-user"></i> ${currentUser.name}</span>`;if(currentUser.isAdmin)h+=`<button class="btn btn-secondary" onclick="toggleAdmin()"><i class="fas fa-cog"></i> Админ</button>`;h+=`<button class="btn btn-success" onclick="openAccount()"><i class="fas fa-user-circle"></i> Аккаунт</button>`;h+=`<button class="btn btn-danger" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Выйти</button>`;s.innerHTML=h}else s.innerHTML=`<button class="btn btn-primary" onclick="openAuth()"><i class="fas fa-user"></i> Войти</button>`}
 
-// Account
 function openAccount(){if(!currentUser){openAuth();return}document.getElementById('accountModal').classList.add('active');renderAccountInfo();renderAddresses();renderCards();renderBonuses();closeMenu()}
 function closeAccount(){document.getElementById('accountModal').classList.remove('active')}
 function switchAccountTab(t){document.querySelectorAll('.account-tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.account-panel').forEach(x=>x.classList.remove('active'));const tabs=['info','addresses','cards','bonuses'];document.querySelectorAll('.account-tab')[tabs.indexOf(t)].classList.add('active');document.getElementById('account'+t.charAt(0).toUpperCase()+t.slice(1)).classList.add('active')}
@@ -562,7 +574,6 @@ function addCard(e){e.preventDefault();if(!currentUser.cards)currentUser.cards=[
 function deleteCard(id){if(!confirm('Удалить?'))return;currentUser.cards=currentUser.cards.filter(c=>c.id!==id);const i=users.findIndex(u=>u.id===currentUser.id);if(i!==-1)users[i]=currentUser;saveData('users',users);saveData('currentUser',currentUser);renderCards()}
 function renderBonuses(){if(!currentUser)return;document.getElementById('bonusAmount').textContent=currentUser.bonuses||0;const h=document.getElementById('bonusHistory');if(!currentUser.bonusHistory||!currentUser.bonusHistory.length){h.innerHTML='<p style="text-align:center;color:#636e72;padding:1rem">Пусто</p>';return}h.innerHTML=currentUser.bonusHistory.slice(-10).reverse().map(b=>`<div class="account-info-row"><span class="account-info-label">${b.date}</span><span class="account-info-value" style="color:${b.type==='earned'?'#2ed573':'#ff4757'}">${b.type==='earned'?'+':'-'}${b.amount}</span></div>`).join('')}
 
-// Admin
 function toggleAdmin(){const a=document.getElementById('adminSection');a.classList.toggle('active');closeMenu();if(a.classList.contains('active')){renderAdminProducts();renderUsers();renderOrders();a.scrollIntoView({behavior:'smooth'})}}
 function switchAdminTab(t){document.querySelectorAll('.admin-tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.admin-panel').forEach(x=>x.classList.remove('active'));const tabs=['products','users','addProduct','orders'];document.querySelectorAll('.admin-tab')[tabs.indexOf(t)].classList.add('active');document.getElementById('admin'+t.charAt(0).toUpperCase()+t.slice(1)).classList.add('active');if(t==='products')renderAdminProducts();if(t==='users')renderUsers();if(t==='orders')renderOrders()}
 function renderAdminProducts(){const c=document.getElementById('adminProductsList');document.getElementById('productsCount').textContent=menuItems.length;if(!menuItems.length){c.innerHTML='<p style="text-align:center;padding:2rem;color:#636e72">Пусто</p>';return}const tn={shawarma:'Шаурма',chicken:'Курица',chickenLegs:'Ножки',chickenFillet:'Филе',shawarmaXL:'Шаурма XL',burger:'Бургер',pizza:'Пицца',drink:'Напиток',fries:'Фри'};c.innerHTML=menuItems.map(i=>{const img=foodImages[i.type]||foodImages.shawarma;return`<div class="admin-product-card"><div class="admin-product-card-header"><div class="admin-product-card-title"><div style="width:50px;height:50px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#ff6b35,#ff4500);display:flex;align-items:center;justify-content:center"><img src="${img.main}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'"></div><span>${i.name}</span><span style="font-size:.85rem;color:#636e72">(${tn[i.type]||i.type})</span></div><button class="btn btn-danger btn-small" onclick="deleteProduct(${i.id})"><i class="fas fa-trash"></i></button></div><div class="admin-product-card-body"><div class="form-group"><label>Название</label><input type="text" id="editName_${i.id}" value="${i.name}"></div><div class="form-group"><label>Цена</label><input type="number" id="editPrice_${i.id}" value="${i.price}" min="1"></div><div class="form-group"><label>Тип</label><select id="editType_${i.id}"><option value="shawarma" ${i.type==='shawarma'?'selected':''}>Шаурма</option><option value="chicken" ${i.type==='chicken'?'selected':''}>Курица</option><option value="pizza" ${i.type==='pizza'?'selected':''}>Пицца</option><option value="burger" ${i.type==='burger'?'selected':''}>Бургер</option><option value="drink" ${i.type==='drink'?'selected':''}>Напиток</option><option value="fries" ${i.type==='fries'?'selected':''}>Фри</option></select></div><div class="form-group"><label>Описание</label><input type="text" id="editDesc_${i.id}" value="${i.description}"></div></div><div class="admin-product-card-footer"><button class="btn btn-success btn-small" onclick="saveProduct(${i.id})"><i class="fas fa-save"></i> Сохранить</button></div></div>`}).join('')}
@@ -572,142 +583,169 @@ function addNewProduct(e){e.preventDefault();const n=document.getElementById('ne
 function renderOrders(){const l=document.getElementById('ordersList');if(!orders.length){l.innerHTML='<p style="padding:2rem;text-align:center;color:#636e72">Пусто</p>';return}l.innerHTML=orders.slice().reverse().map(o=>`<div class="order-item"><div class="order-header"><div><span class="order-id">#${o.id}</span> <span class="order-date">${new Date(o.date).toLocaleString('ru-RU')}</span></div><span class="order-status ${o.status==='completed'?'status-completed':'status-pending'}">${o.status==='completed'?'✓ Выполнен':'⏳ В обработке'}</span></div><div class="order-user"><i class="fas fa-user"></i> ${o.userName} | <i class="fas fa-phone"></i> ${o.userPhone}</div><div class="order-address"><i class="fas fa-map-marker-alt"></i> ${o.deliveryAddress}${o.isPickup?' (Самовывоз)':''}</div><div class="payment-info"><strong>Оплата:</strong> ${o.paymentMethod==='card'?'💳 Карта':'💵 Наличные'}</div><ul class="order-products">${o.items.map(i=>`<li>${i.name} ×${i.quantity} = ${i.price*i.quantity} ₽</li>`).join('')}</ul><div class="order-total">Товары: ${o.itemsTotal}₽ | Доставка: ${o.deliveryPrice}₽ | ${o.bonusUsed>0?'Бонусы: -'+o.bonusUsed+'₽ | ':''}<strong>Итого: ${o.total}₽</strong></div>${o.status!=='completed'?`<button class="btn btn-success btn-small" onclick="completeOrder(${o.id})" style="margin-top:1rem"><i class="fas fa-check"></i> Выполнен</button>`:''}</div>`).join('')}
 function completeOrder(id){const o=orders.find(x=>x.id===id);if(o){o.status='completed';saveData('orders',orders);renderOrders();showNotification('Заказ выполнен','success')}}
 
-// Cart
 function addToCart(id){const i=menuItems.find(x=>x.id===id);const e=cart.find(x=>x.id===id);if(e)e.quantity++;else cart.push({...i,quantity:1});updateCartCount();showNotification(i.name+' добавлен','success');showMiniCart()}
-function updateCartCount(){document.getElementById('cartCount').textContent=cart.reduce((s,i)=>s+i.quantity,0)}
-function openCart(){document.getElementById('cartModal').classList.add('active');renderCart();closeMenu();document.getElementById('cartView').style.display='block';document.getElementById('paymentMethodView').style.display='none';document.getElementById('paymentForm').classList.remove('active');document.getElementById('successMessage').classList.remove('active');document.getElementById('cashInfo').classList.remove('active');document.getElementById('guestCheckoutView').style.display='none'}
-function closeCart(){document.getElementById('cartModal').classList.remove('active');document.getElementById('cartView').style.display='block';document.getElementById('paymentMethodView').style.display='none';document.getElementById('paymentForm').classList.remove('active');document.getElementById('successMessage').classList.remove('active');document.getElementById('cashInfo').classList.remove('active');document.getElementById('guestCheckoutView').style.display='none';selectedAddress=null;bonusToUse=0;guestData=null}
+function updateCartCount(){const count=cart.reduce((s,i)=>s+i.quantity,0);document.getElementById('cartCount').textContent=count;document.getElementById('fcCount').textContent=count;
+const fc=document.getElementById('floatingCart');
+if(count>0)fc.classList.remove('hidden');else fc.classList.add('hidden')}
+
+function openCart(){document.getElementById('cartModal').classList.add('active');renderCart();closeMenu();goToStep('stepCart');hideMiniCart()}
+function closeCart(){document.getElementById('cartModal').classList.remove('active');selectedAddress=null;bonusToUse=0;guestData=null;selectedPaymentMethod=null;deliveryType=null;
+document.getElementById('dtPickup').classList.remove('active');
+document.getElementById('dtDelivery').classList.remove('active');
+document.getElementById('pickupInfo').classList.remove('active')}
+
+function goToStep(stepId){
+['stepCart','stepGuest','stepGuestPickup','stepPayment','stepPayForm','stepSuccess'].forEach(s=>{
+    const el=document.getElementById(s);if(el)el.style.display='none'
+});
+const target=document.getElementById(stepId);
+if(target){target.style.display='block';prevStep=stepId}
+}
+
+// ПЕРЕКЛЮЧЕНИЕ СПОСОБА ПОЛУЧЕНИЯ (toggle)
+function toggleDeliveryType(type){
+if(deliveryType===type){
+    // Повторное нажатие - снимаем выбор
+    deliveryType=null;
+    selectedAddress=null;
+    document.getElementById('dtPickup').classList.remove('active');
+    document.getElementById('dtDelivery').classList.remove('active');
+    document.getElementById('pickupInfo').classList.remove('active');
+    document.getElementById('addressSelection').style.display='none';
+    renderCart();
+    return;
+}
+deliveryType=type;
+document.getElementById('dtPickup').classList.toggle('active',type==='pickup');
+document.getElementById('dtDelivery').classList.toggle('active',type==='delivery');
+
+if(type==='pickup'){
+    selectedAddress={id:'pickup',title:'Самовывоз',full:'г. Снежное, ул. Ленина, 32',zone:0,pickup:true};
+    document.getElementById('pickupInfo').classList.add('active');
+    document.getElementById('addressSelection').style.display='none';
+}else{
+    selectedAddress=null;
+    document.getElementById('pickupInfo').classList.remove('active');
+    // Показываем список адресов только для зарегистрированных
+    if(currentUser&&currentUser.addresses&&currentUser.addresses.length>0){
+        document.getElementById('addressSelection').style.display='block';
+        renderAddressOptions();
+    }else{
+        document.getElementById('addressSelection').style.display='none';
+    }
+}
+renderCart();
+}
+
+function goToCheckout(){
+if(!cart.length){showNotification('Корзина пуста!','error');return}
+if(!deliveryType){showNotification('Выберите способ получения!','error');return}
+
+if(deliveryType==='pickup'){
+    // Самовывоз
+    if(!currentUser){
+        goToStep('stepGuestPickup');
+    }else{
+        goToStep('stepPayment');
+    }
+}else{
+    // Доставка
+    if(!currentUser){
+        goToStep('stepGuest');
+    }else if(!selectedAddress){
+        showNotification('Выберите адрес доставки!','error');
+    }else{
+        goToStep('stepPayment');
+    }
+}
+}
+
+function submitGuest(e){e.preventDefault();const name=document.getElementById('guestName').value.trim(),phone=document.getElementById('guestPhone').value.trim(),email=document.getElementById('guestEmail').value.trim(),address=document.getElementById('guestAddress').value.trim(),zone=parseInt(document.getElementById('guestZone').value);if(!name||!phone||!address||!zone){showNotification('Заполните все обязательные поля!','error');return}guestData={name,phone,email,address,zone,isPickup:false};goToStep('stepPayment')}
+function submitGuestPickup(e){e.preventDefault();const name=document.getElementById('guestPickupName').value.trim(),phone=document.getElementById('guestPickupPhone').value.trim(),email=document.getElementById('guestPickupEmail').value.trim();if(!name||!phone){showNotification('Заполните имя и телефон!','error');return}guestData={name,phone,email,isPickup:true};goToStep('stepPayment')}
+
+function selectPaymentMethod(m,e){selectedPaymentMethod=m;document.querySelectorAll('.payment-method-option').forEach(o=>o.classList.remove('selected'));e.currentTarget.classList.add('selected');e.currentTarget.querySelector('input[type="radio"]').checked=true}
+
+function goToPaymentForm(){
+if(!selectedPaymentMethod){showNotification('Выберите способ оплаты!','error');return}
+goToStep('stepPayForm');
+if(selectedPaymentMethod==='cash'){document.getElementById('cashInfo').style.display='block';document.getElementById('cardForm').style.display='none';document.getElementById('payBtn').textContent='Подтвердить заказ';document.getElementById('payBtn').className='btn btn-success';['cardNumber','cardExpiry','cardCvv','cardName'].forEach(id=>{const el=document.getElementById(id);if(el)el.removeAttribute('required')})}
+else{document.getElementById('cashInfo').style.display='none';document.getElementById('cardForm').style.display='block';document.getElementById('payBtn').textContent='Оплатить картой';document.getElementById('payBtn').className='pay-btn';['cardNumber','cardExpiry','cardCvv','cardName'].forEach(id=>{const el=document.getElementById(id);if(el)el.setAttribute('required','required')})}
+}
+
+function goToPrevStep(){
+if(!currentUser){
+    if(guestData&&guestData.isPickup)goToStep('stepGuestPickup');
+    else goToStep('stepGuest');
+}else if(deliveryType==='pickup'){
+    goToStep('stepCart');
+}else{
+    goToStep('stepCart');
+}
+}
 
 function renderCart(){
-const ci=document.getElementById('cartItems'),ct=document.getElementById('cartTotal'),as=document.getElementById('addressSelection'),bu=document.getElementById('bonusUsage'),po=document.getElementById('pickupOption');
-if(!cart.length){ci.innerHTML='<p style="text-align:center;padding:2rem;color:#636e72">Корзина пуста</p>';ct.textContent='Итого: 0 ₽';as.style.display='none';bu.style.display='none';po.style.display='none';return}
+const ci=document.getElementById('cartItems'),ct=document.getElementById('cartTotal'),bu=document.getElementById('bonusUsage');
+if(!cart.length){ci.innerHTML='<p style="text-align:center;padding:2rem;color:#636e72">Корзина пуста</p>';ct.textContent='Итого: 0 ₽';bu.style.display='none';return}
 const it=cart.reduce((s,i)=>s+i.price*i.quantity,0);
 
-// Показываем самовывоз всегда
-po.style.display='block';
-
-// Показываем адреса только для зарегистрированных
-if(currentUser&&currentUser.addresses&&currentUser.addresses.length>0){as.style.display='block';renderAddressOptions()}else as.style.display='none';
-
-// Бонусы только для зарегистрированных
 if(currentUser&&currentUser.bonuses>0&&it>=500){bu.style.display='block';document.getElementById('availableBonuses').textContent=currentUser.bonuses;calculateBonus()}else{bu.style.display='none';bonusToUse=0}
 
 let dp=0;
 if(selectedAddress){
     if(selectedAddress.pickup){dp=0}
     else{const z=deliveryZones['zone'+selectedAddress.zone];dp=z?z.price:0}
-}else if(currentUser&&currentUser.zone){const z=deliveryZones['zone'+currentUser.zone];dp=z?z.price:0}
-const tot=it+dp-bonusToUse;
+}
 
+const tot=it+dp-bonusToUse;
 ci.innerHTML=cart.map(i=>{const img=foodImages[i.type]||foodImages.shawarma;return`<div class="cart-item"><img src="${img.main}" alt="${i.name}" class="cart-item-img" onerror="this.src='${img.fallback}'"><div class="cart-item-info"><div class="cart-item-title">${i.name}</div><div class="cart-item-price">${i.price}₽ × ${i.quantity} = ${i.price*i.quantity}₽</div></div><div class="cart-item-controls"><button class="quantity-btn" onclick="changeQuantity(${i.id},-1)">−</button><span>${i.quantity}</span><button class="quantity-btn" onclick="changeQuantity(${i.id},1)">+</button><button class="remove-btn" onclick="removeFromCart(${i.id})"><i class="fas fa-trash"></i> Все</button></div></div>`}).join('');
 
 let tt=`Товары: ${it}₽<br>`;
-if(dp>0)tt+=`Доставка: ${dp}₽<br>`;
-else if(selectedAddress&&selectedAddress.pickup)tt+=`Самовывоз: Бесплатно<br>`;
+if(selectedAddress&&selectedAddress.pickup)tt+=`Самовывоз: Бесплатно<br>`;
+else if(dp>0)tt+=`Доставка: ${dp}₽<br>`;
 else if(currentUser)tt+=`Доставка: Бесплатно<br>`;
 if(bonusToUse>0)tt+=`Бонусы: -${bonusToUse}₽<br>`;
 tt+=`<strong>Итого: ${tot}₽</strong>`;
 ct.innerHTML=tt}
 
 function renderAddressOptions(){document.getElementById('addressOptions').innerHTML=currentUser.addresses.map(a=>`<label class="address-option ${selectedAddress&&selectedAddress.id===a.id?'selected':''}" onclick="selectAddress(${a.id})"><input type="radio" name="da" value="${a.id}" ${selectedAddress&&selectedAddress.id===a.id?'checked':''}><div style="flex:1"><div style="font-weight:700">${a.title}</div><div style="font-size:.85rem;color:#636e72">${a.full}</div><div style="font-size:.8rem;color:#ff6b35;font-weight:600">Зона ${a.zone} - ${deliveryZones['zone'+a.zone].price}₽</div></div></label>`).join('')}
-
 function selectAddress(id){selectedAddress=currentUser.addresses.find(a=>a.id===id);renderAddressOptions();renderCart()}
 
-function selectPickup(e){e.preventDefault();selectedAddress={id:'pickup',title:'Самовывоз',full:'г. Снежное, ул. Ленина, 32',zone:0,pickup:true};document.querySelectorAll('.address-option').forEach(o=>o.classList.remove('selected'));e.currentTarget.classList.add('selected');e.currentTarget.querySelector('input[type="radio"]').checked=true;renderCart()}
-
 function calculateBonus(){const it=cart.reduce((s,i)=>s+i.price*i.quantity,0);const bi=document.getElementById('bonusInput');let v=parseInt(bi.value)||0;const mx=Math.min(currentUser?currentUser.bonuses:0,Math.floor(it*.5));v=Math.min(v,mx);v=Math.max(0,v);bonusToUse=v;bi.value=v;document.getElementById('bonusUsed').textContent=v;document.getElementById('bonusDiscount').textContent=v;renderCart()}
-
 function useMaxBonuses(){const it=cart.reduce((s,i)=>s+i.price*i.quantity,0);const mx=Math.min(currentUser?currentUser.bonuses:0,Math.floor(it*.5));document.getElementById('bonusInput').value=mx;calculateBonus()}
 
 function changeQuantity(id,c){const i=cart.find(x=>x.id===id);if(i){i.quantity+=c;if(i.quantity<=0){cart=cart.filter(x=>x.id!==id);showNotification('Удалён','info')}updateCartCount();renderCart();updateMiniCart()}}
 function removeFromCart(id){cart=cart.filter(i=>i.id!==id);showNotification('Удалён','info');updateCartCount();renderCart();updateMiniCart()}
 
-// Mini Cart
-function showMiniCart(){const m=document.getElementById('miniCart');updateMiniCart();m.classList.add('show');if(miniCartTimeout)clearTimeout(miniCartTimeout);miniCartTimeout=setTimeout(hideMiniCart,5000)}
-function hideMiniCart(){document.getElementById('miniCart').classList.remove('show')}
+function showMiniCart(){const m=document.getElementById('miniCart');updateMiniCart();m.classList.add('show');document.getElementById('floatingCart').classList.add('hidden');if(miniCartTimeout)clearTimeout(miniCartTimeout);miniCartTimeout=setTimeout(hideMiniCart,5000)}
+function hideMiniCart(){document.getElementById('miniCart').classList.remove('show');if(cart.length>0)document.getElementById('floatingCart').classList.remove('hidden')}
 function updateMiniCart(){const mi=document.getElementById('miniCartItems'),mt=document.getElementById('miniCartTotal');if(!cart.length){mi.innerHTML='<p style="text-align:center;color:#636e72;padding:1rem">Пусто</p>';mt.textContent='0 ₽';return}const it=cart.reduce((s,i)=>s+i.price*i.quantity,0);mi.innerHTML=cart.map(i=>{const img=foodImages[i.type]||foodImages.shawarma;return`<div class="mini-cart-item"><img src="${img.main}" class="mini-cart-item-img" onerror="this.src='${img.fallback}'"><div class="mini-cart-item-info"><div class="mini-cart-item-name">${i.name}</div><div class="mini-cart-item-details"><span class="mini-cart-item-qty">×${i.quantity}</span><span class="mini-cart-item-price">${i.price*i.quantity}₽</span></div></div></div>`}).join('');mt.textContent=it+'₽'}
 function openCartFromMini(){hideMiniCart();openCart()}
 function clearCartFromMini(){if(confirm('Очистить?')){cart=[];updateCartCount();updateMiniCart();hideMiniCart();showNotification('Очищено','info')}}
 
-// Payment Flow
-function showPayment(){
-if(!cart.length){showNotification('Корзина пуста!','error');return}
-if(!currentUser){
-    // Гость - показываем форму ввода данных
-    document.getElementById('cartView').style.display='none';
-    document.getElementById('guestCheckoutView').style.display='block';
-    return
-}
-if(currentUser.addresses&&currentUser.addresses.length>0&&!selectedAddress){
-    // Проверяем, выбран ли самовывоз
-    if(!selectedAddress||!selectedAddress.pickup){
-        showNotification('Выберите адрес или самовывоз!','error');return
-    }
-}
-document.getElementById('cartView').style.display='none';
-document.getElementById('paymentMethodView').style.display='block'}
-
-function backFromGuest(){document.getElementById('guestCheckoutView').style.display='none';document.getElementById('cartView').style.display='block'}
-function backToCartView(){document.getElementById('paymentMethodView').style.display='none';document.getElementById('cartView').style.display='block'}
-
-function proceedWithGuest(){
-const name=document.getElementById('guestName').value.trim();
-const phone=document.getElementById('guestPhone').value.trim();
-const email=document.getElementById('guestEmail').value.trim();
-const address=document.getElementById('guestAddress').value.trim();
-const zone=parseInt(document.getElementById('guestZone').value);
-if(!name||!phone||!address||!zone){showNotification('Заполните все обязательные поля!','error');return}
-guestData={name,phone,email,address,zone};
-document.getElementById('guestCheckoutView').style.display='none';
-document.getElementById('paymentMethodView').style.display='block'}
-
-function selectPaymentMethod(m,e){selectedPaymentMethod=m;document.querySelectorAll('.payment-method-option').forEach(o=>o.classList.remove('selected'));e.currentTarget.classList.add('selected');e.currentTarget.querySelector('input[type="radio"]').checked=true}
-
-function proceedToPayment(){if(!selectedPaymentMethod){showNotification('Выберите способ!','error');return}document.getElementById('paymentMethodView').style.display='none';if(selectedPaymentMethod==='cash'){document.getElementById('cashInfo').classList.add('active');document.getElementById('paymentForm').classList.add('active');document.getElementById('cardFields').style.display='none';document.getElementById('payBtn').textContent='Подтвердить';document.getElementById('payBtn').className='btn btn-success';document.querySelectorAll('#cardFields input').forEach(i=>i.removeAttribute('required'))}else{document.getElementById('paymentForm').classList.add('active');document.getElementById('cardFields').style.display='block';document.getElementById('payBtn').textContent='Оплатить';document.getElementById('payBtn').className='pay-btn';document.querySelectorAll('#cardFields input').forEach(i=>i.setAttribute('required','required'))}}
-
-function backToPaymentMethod(){document.getElementById('paymentForm').classList.remove('active');document.getElementById('paymentMethodView').style.display='block';document.getElementById('cashInfo').classList.remove('active')}
-
-function processPayment(e){
-e.preventDefault();
+function processPayment(){
 if(!selectedPaymentMethod){showNotification('Выберите способ!','error');return}
-if(selectedPaymentMethod==='card'){if(!document.getElementById('cardNumber').value||!document.getElementById('cardExpiry').value||!document.getElementById('cardCvv').value||!document.getElementById('cardName').value){showNotification('Заполните карту!','error');return}}
-
+if(selectedPaymentMethod==='card'){const cn=document.getElementById('cardNumber').value.trim(),ce=document.getElementById('cardExpiry').value.trim(),cv=document.getElementById('cardCvv').value.trim(),cm=document.getElementById('cardName').value.trim();if(!cn||!ce||!cv||!cm){showNotification('Заполните данные карты!','error');return}}
 const it=cart.reduce((s,i)=>s+i.price*i.quantity,0);
 let dp=0,da='',dz=1,isPickup=false;
-
-// Определяем адрес
-if(selectedAddress){
-    if(selectedAddress.pickup){isPickup=true;da='Самовывоз: г. Снежное, ул. Ленина, 32';dz=0;dp=0}
-    else{const z=deliveryZones['zone'+selectedAddress.zone];dp=z?z.price:0;da=selectedAddress.full;dz=selectedAddress.zone}
-}else if(currentUser){
-    if(currentUser.zone){const z=deliveryZones['zone'+currentUser.zone];dp=z?z.price:0}
-    da=currentUser.address||'-'
-}else if(guestData){
-    const z=deliveryZones['zone'+guestData.zone];dp=z?z.price:0;da=guestData.address;dz=guestData.zone
-}
-
+if(selectedAddress){if(selectedAddress.pickup){isPickup=true;da='Самовывоз: г. Снежное, ул. Ленина, 32';dz=0;dp=0}else{const z=deliveryZones['zone'+selectedAddress.zone];dp=z?z.price:0;da=selectedAddress.full;dz=selectedAddress.zone}}
+else if(currentUser){if(currentUser.zone){const z=deliveryZones['zone'+currentUser.zone];dp=z?z.price:0}da=currentUser.address||'-'}
+else if(guestData){if(guestData.isPickup){isPickup=true;da='Самовывоз: г. Снежное, ул. Ленина, 32';dz=0;dp=0}else{const z=deliveryZones['zone'+guestData.zone];dp=z?z.price:0;da=guestData.address;dz=guestData.zone}}
 const tot=it+dp-bonusToUse;
 const orderName=currentUser?currentUser.name:(guestData?guestData.name:'Гость');
 const orderPhone=currentUser?currentUser.phone:(guestData?guestData.phone:'-');
 const orderEmail=currentUser?currentUser.email:(guestData?guestData.email:'-');
-
 orders.push({id:Date.now(),date:new Date().toISOString(),userId:currentUser?currentUser.id:null,userName:orderName,userEmail:orderEmail,userPhone:orderPhone,deliveryAddress:da,zone:dz,isPickup:isPickup,items:JSON.parse(JSON.stringify(cart)),itemsTotal:it,deliveryPrice:dp,bonusUsed:bonusToUse,total:tot,paymentMethod:selectedPaymentMethod,status:'pending'});
 saveData('orders',orders);
-
-// Бонусы только для зарегистрированных
-if(currentUser&&it>=500){
-    const eb=Math.min(Math.floor(it*.05),500);
-    currentUser.bonuses=(currentUser.bonuses||0)+eb-bonusToUse;
-    if(!currentUser.bonusHistory)currentUser.bonusHistory=[];
-    if(bonusToUse>0)currentUser.bonusHistory.push({date:new Date().toLocaleDateString('ru-RU'),amount:bonusToUse,type:'spent'});
-    currentUser.bonusHistory.push({date:new Date().toLocaleDateString('ru-RU'),amount:eb,type:'earned'});
-    const ui=users.findIndex(u=>u.id===currentUser.id);
-    if(ui!==-1)users[ui]=currentUser;
-    saveData('users',users);saveData('currentUser',currentUser);
-    document.getElementById('bonusEarnedMessage').textContent='Вам начислено '+eb+' бонусов за заказ!'
-}else{document.getElementById('bonusEarnedMessage').textContent=''}
-
-setTimeout(()=>{document.getElementById('paymentForm').classList.remove('active');document.getElementById('paymentMethodView').style.display='none';document.getElementById('guestCheckoutView').style.display='none';document.getElementById('cashInfo').classList.remove('active');document.getElementById('successMessage').classList.add('active');cart=[];updateCartCount();selectedPaymentMethod=null;selectedAddress=null;bonusToUse=0;guestData=null;hideMiniCart();if(document.getElementById('adminSection').classList.contains('active'))renderOrders()},1000)}
+if(currentUser&&it>=500){const eb=Math.min(Math.floor(it*.05),500);currentUser.bonuses=(currentUser.bonuses||0)+eb-bonusToUse;if(!currentUser.bonusHistory)currentUser.bonusHistory=[];if(bonusToUse>0)currentUser.bonusHistory.push({date:new Date().toLocaleDateString('ru-RU'),amount:bonusToUse,type:'spent'});currentUser.bonusHistory.push({date:new Date().toLocaleDateString('ru-RU'),amount:eb,type:'earned'});const ui=users.findIndex(u=>u.id===currentUser.id);if(ui!==-1)users[ui]=currentUser;saveData('users',users);saveData('currentUser',currentUser);document.getElementById('bonusEarnedMessage').textContent='Вам начислено '+eb+' бонусов за заказ!'}
+else{document.getElementById('bonusEarnedMessage').textContent=''}
+document.getElementById('successText').textContent=isPickup?'Заказ будет готов через 15-20 минут':'Доставка в течение 30-60 минут';
+goToStep('stepSuccess');
+cart=[];updateCartCount();selectedPaymentMethod=null;selectedAddress=null;bonusToUse=0;guestData=null;deliveryType=null;
+document.getElementById('dtPickup').classList.remove('active');
+document.getElementById('dtDelivery').classList.remove('active');
+document.getElementById('pickupInfo').classList.remove('active');
+hideMiniCart();
+if(document.getElementById('adminSection').classList.contains('active'))renderOrders()}
 
 function showNotification(m,t='info'){const n=document.createElement('div');n.className='notification '+t;n.innerHTML=`<i class="fas fa-${t==='success'?'check-circle':t==='error'?'exclamation-circle':'info-circle'}"></i> ${m}`;document.body.appendChild(n);setTimeout(()=>{n.style.opacity='0';n.style.transition='opacity .3s';setTimeout(()=>n.remove(),300)},3000)}
 </script>
