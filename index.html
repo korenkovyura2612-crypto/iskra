@@ -907,6 +907,58 @@
         .success-message.active { display: block; }
         .success-icon { font-size: 5rem; color: #2ed573; margin-bottom: 1.5rem; }
 
+        /* Payment Method Selection */
+        .payment-method-option {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            border: 2px solid #f1f2f6;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 1rem;
+        }
+
+        .payment-method-option:hover {
+            border-color: #ff6b35;
+            background: #fff5f0;
+        }
+
+        .payment-method-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 1rem;
+            cursor: pointer;
+        }
+
+        .payment-method-option.selected {
+            border-color: #ff6b35;
+            background: #fff5f0;
+        }
+
+        .cash-info {
+            display: none;
+            background: #d4edda;
+            border-left: 4px solid #2ed573;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .cash-info.active {
+            display: block;
+        }
+
+        .cash-info h4 {
+            color: #155724;
+            margin-bottom: 0.5rem;
+        }
+
+        .cash-info p {
+            color: #155724;
+            margin: 0;
+        }
+
         /* Admin Panel */
         .admin-section {
             display: none;
@@ -1135,6 +1187,13 @@
         .order-total { font-weight: 700; font-size: 1.3rem; color: #2d3436; }
         .order-user { color: #636e72; font-size: 1rem; }
         .order-address { color: #ff6b35; font-size: 1rem; margin-top: 0.8rem; }
+
+        .payment-info {
+            margin: 0.8rem 0;
+            padding: 0.8rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
 
         /* Footer */
         footer {
@@ -1643,36 +1702,86 @@
                 <button class="checkout-btn" onclick="showPayment()">Оформить заказ</button>
             </div>
 
+            <!-- Выбор способа оплаты -->
+            <div id="paymentMethodView" style="display: none;">
+                <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-credit-card"></i> Выберите способ оплаты</h3>
+                
+                <label class="payment-method-option" onclick="selectPaymentMethod('cash')">
+                    <input type="radio" name="paymentMethod" value="cash" style="width: 20px; height: 20px; margin-right: 1rem;">
+                    <div style="flex: 1;">
+                        <div style="font-weight: 700; color: #2d3436; margin-bottom: 0.3rem;">
+                            <i class="fas fa-money-bill-wave" style="color: #2ed573;"></i> Наличные при получении
+                        </div>
+                        <div style="font-size: 0.9rem; color: #636e72;">
+                            Оплатите курьеру при доставке
+                        </div>
+                    </div>
+                </label>
+                
+                <label class="payment-method-option" onclick="selectPaymentMethod('card')">
+                    <input type="radio" name="paymentMethod" value="card" style="width: 20px; height: 20px; margin-right: 1rem;">
+                    <div style="flex: 1;">
+                        <div style="font-weight: 700; color: #2d3436; margin-bottom: 0.3rem;">
+                            <i class="fas fa-credit-card" style="color: #ff6b35;"></i> Банковской картой
+                        </div>
+                        <div style="font-size: 0.9rem; color: #636e72;">
+                            Оплата онлайн картой Visa, MasterCard, МИР
+                        </div>
+                    </div>
+                </label>
+                
+                <button class="checkout-btn" onclick="proceedToPayment()" style="margin-top: 1rem;">
+                    Продолжить <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Информация об оплате наличными -->
+            <div id="cashInfo" class="cash-info">
+                <h4>
+                    <i class="fas fa-info-circle"></i> Оплата наличными
+                </h4>
+                <p>
+                    При получении заказа оплатите курьеру наличными. Пожалуйста, приготовьте точную сумму.
+                </p>
+            </div>
+
             <div class="payment-form" id="paymentForm">
                 <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-credit-card"></i> Оплата картой</h3>
                 <form onsubmit="processPayment(event)">
-                    <div class="form-group">
-                        <label>Номер карты</label>
-                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
-                    </div>
-                    <div class="card-row">
+                    <div id="cardFields">
                         <div class="form-group">
-                            <label>Срок действия</label>
-                            <input type="text" id="cardExpiry" placeholder="MM/ГГ" maxlength="5" required>
+                            <label>Номер карты</label>
+                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                        </div>
+                        <div class="card-row">
+                            <div class="form-group">
+                                <label>Срок действия</label>
+                                <input type="text" id="cardExpiry" placeholder="MM/ГГ" maxlength="5" required>
+                            </div>
+                            <div class="form-group">
+                                <label>CVV</label>
+                                <input type="text" id="cardCvv" placeholder="123" maxlength="3" required>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label>CVV</label>
-                            <input type="text" id="cardCvv" placeholder="123" maxlength="3" required>
+                            <label>Имя владельца</label>
+                            <input type="text" id="cardName" placeholder="IVAN IVANOV" required>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label>Имя владельца</label>
-                        <input type="text" id="cardName" placeholder="IVAN IVANOV" required>
-                    </div>
-                    <button type="submit" class="pay-btn">Оплатить</button>
+                    
+                    <button type="submit" class="pay-btn" id="payBtn">Оплатить</button>
                 </form>
+                
+                <button class="btn btn-secondary" onclick="backToPaymentMethod()" style="margin-top: 1rem; width: 100%;">
+                    <i class="fas fa-arrow-left"></i> Назад
+                </button>
             </div>
 
             <div class="success-message" id="successMessage">
                 <div class="success-icon">
                     <i class="fas fa-check-circle"></i>
                 </div>
-                <h3>Заказ успешно оплачен!</h3>
+                <h3>Заказ успешно оформлен!</h3>
                 <p>Ваш заказ из ISKRA будет доставлен в течение 30-60 минут</p>
                 <button class="checkout-btn" onclick="closeCart()" style="margin-top: 1.5rem;">Закрыть</button>
             </div>
@@ -1929,6 +2038,7 @@
         let orders = loadData('orders', []);
         let currentUser = loadData('currentUser', null);
         let cart = [];
+        let selectedPaymentMethod = null;
 
         // Render Menu
         function renderMenu() {
@@ -2364,6 +2474,12 @@
                     </div>
                     <div class="order-user"><i class="fas fa-user"></i> ${order.userName} | <i class="fas fa-phone"></i> ${order.userPhone}</div>
                     <div class="order-address"><i class="fas fa-map-marker-alt"></i> ${order.deliveryAddress} (Зона ${order.zone})</div>
+                    <div class="payment-info">
+                        <strong><i class="fas fa-credit-card"></i> Оплата:</strong> 
+                        <span style="color: ${order.paymentMethod === 'card' ? '#ff6b35' : '#2ed573'}; font-weight: 700;">
+                            ${order.paymentMethod === 'card' ? '💳 Картой онлайн' : '💵 Наличные при получении'}
+                        </span>
+                    </div>
                     <ul class="order-products">
                         ${order.items.map(item => `
                             <li>${item.name} × ${item.quantity} = ${item.price * item.quantity} ₽</li>
@@ -2416,13 +2532,21 @@
             document.getElementById('cartModal').classList.add('active');
             renderCart();
             closeMenu();
+            // Reset views
+            document.getElementById('cartView').style.display = 'block';
+            document.getElementById('paymentMethodView').style.display = 'none';
+            document.getElementById('paymentForm').classList.remove('active');
+            document.getElementById('successMessage').classList.remove('active');
+            document.getElementById('cashInfo').classList.remove('active');
         }
 
         function closeCart() {
             document.getElementById('cartModal').classList.remove('active');
             document.getElementById('cartView').style.display = 'block';
+            document.getElementById('paymentMethodView').style.display = 'none';
             document.getElementById('paymentForm').classList.remove('active');
             document.getElementById('successMessage').classList.remove('active');
+            document.getElementById('cashInfo').classList.remove('active');
         }
 
         function renderCart() {
@@ -2486,12 +2610,10 @@
             }
         }
 
-        // ФУНКЦИЯ УДАЛЕНИЯ ТОВАРА ПОЛНОСТЬЮ
         function removeFromCart(itemId) {
             const item = cart.find(i => i.id === itemId);
             if (!item) return;
             
-            // Удаляем товар полностью из корзины
             cart = cart.filter(i => i.id !== itemId);
             showNotification(`"${item.name}" полностью удалён из корзины`, 'info');
             
@@ -2499,6 +2621,7 @@
             renderCart();
         }
 
+        // Payment Functions
         function showPayment() {
             if (cart.length === 0) {
                 showNotification('Корзина пуста!', 'error');
@@ -2510,12 +2633,83 @@
                 openAuth();
                 return;
             }
+            
+            // Show payment method selection
             document.getElementById('cartView').style.display = 'none';
-            document.getElementById('paymentForm').classList.add('active');
+            document.getElementById('paymentMethodView').style.display = 'block';
+        }
+
+        function selectPaymentMethod(method) {
+            selectedPaymentMethod = method;
+            
+            // Update visual selection
+            document.querySelectorAll('.payment-method-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            
+            // Check the radio button
+            event.currentTarget.querySelector('input[type="radio"]').checked = true;
+        }
+
+        function proceedToPayment() {
+            if (!selectedPaymentMethod) {
+                showNotification('Пожалуйста, выберите способ оплаты!', 'error');
+                return;
+            }
+            
+            document.getElementById('paymentMethodView').style.display = 'none';
+            
+            if (selectedPaymentMethod === 'cash') {
+                // Show cash info and skip card form
+                document.getElementById('cashInfo').classList.add('active');
+                document.getElementById('paymentForm').classList.add('active');
+                document.getElementById('cardFields').style.display = 'none';
+                document.getElementById('payBtn').textContent = 'Подтвердить заказ';
+                document.getElementById('payBtn').className = 'btn btn-success';
+                // Remove required from card fields
+                document.querySelectorAll('#cardFields input').forEach(input => {
+                    input.removeAttribute('required');
+                });
+            } else {
+                // Show card form
+                document.getElementById('paymentForm').classList.add('active');
+                document.getElementById('cardFields').style.display = 'block';
+                document.getElementById('payBtn').textContent = 'Оплатить картой';
+                document.getElementById('payBtn').className = 'pay-btn';
+                // Add required to card fields
+                document.querySelectorAll('#cardFields input').forEach(input => {
+                    input.setAttribute('required', 'required');
+                });
+            }
+        }
+
+        function backToPaymentMethod() {
+            document.getElementById('paymentForm').classList.remove('active');
+            document.getElementById('paymentMethodView').style.display = 'block';
+            document.getElementById('cashInfo').classList.remove('active');
         }
 
         function processPayment(event) {
             event.preventDefault();
+            
+            if (!selectedPaymentMethod) {
+                showNotification('Выберите способ оплаты!', 'error');
+                return;
+            }
+            
+            // If card payment, validate fields
+            if (selectedPaymentMethod === 'card') {
+                const cardNumber = document.getElementById('cardNumber').value;
+                const cardExpiry = document.getElementById('cardExpiry').value;
+                const cardCvv = document.getElementById('cardCvv').value;
+                const cardName = document.getElementById('cardName').value;
+                
+                if (!cardNumber || !cardExpiry || !cardCvv || !cardName) {
+                    showNotification('Заполните все поля карты!', 'error');
+                    return;
+                }
+            }
             
             const itemsTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const zone = deliveryZones['zone' + (currentUser.zone || 1)];
@@ -2535,6 +2729,7 @@
                 itemsTotal: itemsTotal,
                 deliveryPrice: deliveryPrice,
                 total: total,
+                paymentMethod: selectedPaymentMethod,
                 status: 'pending'
             };
 
@@ -2543,9 +2738,12 @@
 
             setTimeout(() => {
                 document.getElementById('paymentForm').classList.remove('active');
+                document.getElementById('paymentMethodView').style.display = 'none';
+                document.getElementById('cashInfo').classList.remove('active');
                 document.getElementById('successMessage').classList.add('active');
                 cart = [];
                 updateCartCount();
+                selectedPaymentMethod = null;
                 
                 if (document.getElementById('adminSection').classList.contains('active')) {
                     renderOrders();
